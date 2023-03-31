@@ -1,1 +1,0 @@
-# Poguljanka_2D
