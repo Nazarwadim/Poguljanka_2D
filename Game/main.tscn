@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dn6awas4bgrwb"]
 
-[ext_resource type="PackedScene" path="res://AditionalScenes/PlayerTscn/character_body_2d.tscn" id="1_3bejc"]
+[ext_resource type="PackedScene" uid="uid://bnuy3uknt1cul" path="res://AditionalScenes/PlayerTscn/character_body_2d.tscn" id="1_3bejc"]
 [ext_resource type="Texture2D" uid="uid://cruabjeuy8bql" path="res://assets/grass.png" id="2_6rrhw"]
 [ext_resource type="Texture2D" uid="uid://dtj0otco653pk" path="res://assets/BMP_water.bmp" id="2_o2lkt"]
 

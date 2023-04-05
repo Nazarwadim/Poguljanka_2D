@@ -9,7 +9,6 @@ public partial class Character_body_2d : CharacterBody2D
 	private CameraScript2D _camera2D;
 	public override void _Ready()
 	{
-		
 		_camera2D = GetNode<CameraScript2D>("Camera2D");
 		_playerAnimation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		_playerAnimation.Animation = "default";
@@ -45,7 +44,6 @@ public partial class Character_body_2d : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 		_playerAnimation.Play();
-		_camera2D.SmoothForward = true;
 	}
 
 };
