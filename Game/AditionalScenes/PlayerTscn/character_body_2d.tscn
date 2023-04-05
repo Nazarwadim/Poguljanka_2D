@@ -1,8 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cd7moyr3niwyp"]
+[gd_scene load_steps=15 format=3]
 
-[ext_resource type="Script" path="res://Character_body_2d.cs" id="1_x85rg"]
+[ext_resource type="Script" path="res://AditionalScenes/PlayerTscn/Character_body_2d.cs" id="1_x85rg"]
 [ext_resource type="Texture2D" uid="uid://blkd2gqd7ypc" path="res://assets/player_anims.png" id="2_1tvc6"]
-[ext_resource type="Script" path="res://CameraScript2D.cs" id="3_astqo"]
+[ext_resource type="Script" path="res://AditionalScenes/PlayerTscn/CameraScript2D.cs" id="3_astqo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6hdb2"]
 radius = 13.0
