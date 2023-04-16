@@ -8,3 +8,8 @@ Game/.godot/
 # Mono-specific ignores
 .mono/
 data_*/
+
+
+#gd Extention
+
+Game/bin
