@@ -1,46 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dn6awas4bgrwb"]
+[gd_scene load_steps=5 format=3 uid="uid://dn6awas4bgrwb"]
 
 [ext_resource type="PackedScene" uid="uid://bnuy3uknt1cul" path="res://AditionalScenes/PlayerTscn/character_body_2d.tscn" id="1_3bejc"]
 [ext_resource type="Texture2D" uid="uid://cruabjeuy8bql" path="res://assets/grass.png" id="2_6rrhw"]
 [ext_resource type="Texture2D" uid="uid://dtj0otco653pk" path="res://assets/BMP_water.bmp" id="2_o2lkt"]
-
-[sub_resource type="Animation" id="Animation_yuisr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_otn7t"]
-resource_name = "new_animation"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.9, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-3, 73), Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_h7moo"]
-_data = {
-"RESET": SubResource("Animation_yuisr"),
-"new_animation": SubResource("Animation_otn7t")
-}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_le6qv"]
 size = Vector2(1142, 34)
@@ -52,22 +14,15 @@ position = Vector2(-4, -7)
 position = Vector2(451, -240)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(1513, 539)
+position = Vector2(1335, -107)
 rotation = -0.548033
 metadata/_edit_group_ = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody2D2"]
-root_node = NodePath("../Sprite2D")
-autoplay = "new_animation"
-libraries = {
-"": SubResource("AnimationLibrary_h7moo")
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 shape = SubResource("RectangleShape2D_le6qv")
 
 [node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D2"]
-position = Vector2(0, 1)
+position = Vector2(-0.0557861, 3.41211)
 scale = Vector2(34.9688, 0.9375)
 texture = ExtResource("2_o2lkt")
 
@@ -76,16 +31,9 @@ scale = Vector2(35.6563, 1)
 texture = ExtResource("2_6rrhw")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(202, 142)
+position = Vector2(92.9999, 37)
 rotation = 0.167552
 metadata/_edit_group_ = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody2D"]
-root_node = NodePath("../Sprite2D")
-autoplay = "new_animation"
-libraries = {
-"": SubResource("AnimationLibrary_h7moo")
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_le6qv")
