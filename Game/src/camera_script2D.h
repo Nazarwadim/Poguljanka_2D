@@ -10,10 +10,6 @@ class CameraScript2D : public Camera2D {
     GDCLASS(CameraScript2D, Camera2D)
 
 private:
-    float time_passed;
-    float amplitude;
-
-    bool _smooth_forward;
     Vector2 _smoot_velosity;
     Vector2 _position;
 
@@ -30,11 +26,14 @@ public:
     CameraScript2D();
     ~CameraScript2D();
 
+    bool smooth_forward;
+
     void _ready() override;
     void _process(double delta) override;
 
-    void set_amplitude(const float amplitude);
-    float get_amplitude() const;
+    void set_smooth_forward(bool smooth_forward);
+    bool get_smooth_forward() const;
+
 
 
 };

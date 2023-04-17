@@ -6,11 +6,8 @@ public partial class Character_body_2d : CharacterBody2D
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 	private AnimatedSprite2D _playerAnimation;
-	private CameraScript2D _camera2D;
 	public override void _Ready()
 	{
-		
-		_camera2D = GetNode<CameraScript2D>("Camera2D");
 		_playerAnimation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		_playerAnimation.Animation = "default";
 	}
