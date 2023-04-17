@@ -3,7 +3,7 @@
 .import/
 export.cfg
 export_presets.cfg
-Game/.godot/
+Game/project/.godot/
 
 # Mono-specific ignores
 .mono/
@@ -12,4 +12,4 @@ data_*/
 
 #gd Extention
 
-Game/bin
+Game/project/bin
