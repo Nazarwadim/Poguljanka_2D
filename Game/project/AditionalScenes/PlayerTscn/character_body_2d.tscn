@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bnuy3uknt1cul"]
+[gd_scene load_steps=15 format=3 uid="uid://bnuy3uknt1cul"]
 
 [ext_resource type="Script" path="res://AditionalScenes/PlayerTscn/Character_body_2d.cs" id="1_x85rg"]
 [ext_resource type="Texture2D" uid="uid://blkd2gqd7ypc" path="res://assets/player_anims.png" id="2_1tvc6"]
+[ext_resource type="Script" path="res://AditionalScenes/PlayerTscn/CameraScript2D.cs" id="3_xb4tr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6hdb2"]
 radius = 13.0
@@ -97,5 +98,6 @@ sprite_frames = SubResource("SpriteFrames_xvyih")
 animation = &"run"
 frame_progress = 0.230569
 
-[node name="CameraSmooth" type="CameraScript2D" parent="."]
-position = Vector2(2.8026e-45, 2.8026e-45)
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_xb4tr")
+SmoothForward = true
