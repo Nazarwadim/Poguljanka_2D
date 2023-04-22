@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://b6sn2fuuuamlp"]
+
+[ext_resource type="Script" path="res://Character/player.cs" id="1_lk1d2"]
+[ext_resource type="Texture2D" uid="uid://b4sf4c5cumeah" path="res://oak_woods_v1.0/character/char_blue.png" id="1_lkjgj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pvfov"]
+radius = 7.36498
+height = 24.5499
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv2dt"]
+atlas = ExtResource("1_lkjgj")
+region = Rect2(0, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_quw7d"]
+atlas = ExtResource("1_lkjgj")
+region = Rect2(56, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53sii"]
+atlas = ExtResource("1_lkjgj")
+region = Rect2(112, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slh8t"]
+atlas = ExtResource("1_lkjgj")
+region = Rect2(168, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwr8c"]
+atlas = ExtResource("1_lkjgj")
+region = Rect2(224, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_as83j"]
+atlas = ExtResource("1_lkjgj")
+region = Rect2(280, 0, 56, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1mnyl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv2dt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_quw7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53sii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slh8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwr8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_as83j")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_lk1d2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.222, 1.222)
+shape = SubResource("CapsuleShape2D_pvfov")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -13)
+sprite_frames = SubResource("SpriteFrames_1mnyl")
+animation = &"new_animation"
+frame = 3
+frame_progress = 0.00625129
