@@ -9,8 +9,19 @@ public partial class player : CharacterBody2D
 	[Export] public int _countOfJump = 2;
 	[Export] public float _acceleration = 1f;
 
+	public Vector2 direction = Vector2.Zero;
+
+	AnimatedSprite2D _animatedSprite2D = new AnimatedSprite2D();
+
+	public bool _animationLock = true;
+
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+
+	public override void _Ready()
+	{
+		_animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -33,7 +44,7 @@ public partial class player : CharacterBody2D
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("left", "right", "up", "down");
+		direction = Input.GetVector("left", "right", "up", "down");
 		if (direction != Vector2.Zero)
 		{
 			if(Input.IsActionPressed("sprint")){
@@ -54,5 +65,25 @@ public partial class player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		_animatioinUpdate();
+		_flipUpdate();
+	}
+	public void _animatioinUpdate(){
+		if (direction != Vector2.Zero){
+			_animatedSprite2D.Play("run");
+		}
+		else{
+			_animatedSprite2D.Play("idle");
+		}
+
+	}
+	public void _flipUpdate(){
+		if(direction.X>0){
+			_animatedSprite2D.FlipH = false;
+		}
+		else if(direction.X<0){
+			_animatedSprite2D.FlipH = true;
+		} 	
+		
 	}
 }
