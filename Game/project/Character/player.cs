@@ -4,19 +4,22 @@ using System;
 public partial class player : CharacterBody2D
 {
     [Export] public float _speed;
-    [Export] public float _sprintSpeed;
+    [Export] public float _dashSpeed;
     [Export] public float _jumpVelocity = -300.0f;
-	[Export] public float _airJumpVelocity = -222.0f;
+    [Export] public float _airJumpVelocity = -222.0f;
     [Export] public int _countOfJump = 2;
     [Export] public float _acceleration = 1f;
-	  
+	public float _dashTimer = 0.15f;
+	public float _dashTimerReset = 0.15f;
+
     public Vector2 direction = Vector2.Zero;
     public Vector2 velocity = new Vector2();
 
     AnimatedSprite2D _animatedSprite2D = new AnimatedSprite2D();
 
-    public bool _animationLock = true;
-    public bool _wasInAir = false;
+    public bool AnimationLock = true;
+    public bool WasInAir = false;
+    public bool IsDashing = false;
 
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -34,16 +37,16 @@ public partial class player : CharacterBody2D
         if (!IsOnFloor())
         {
             velocity.Y += gravity * (float)delta;
-            _wasInAir = true;
+            WasInAir = true;
         }
         else
         {
             _countOfJump = 2;
-            if (_wasInAir == true)
+            if (WasInAir == true)
             {
                 Land();
             }
-            _wasInAir = false;
+            WasInAir = false;
         }
 
 
@@ -53,21 +56,46 @@ public partial class player : CharacterBody2D
             Jump();
             _countOfJump--;
         }
-		else if(Input.IsActionJustPressed("ui_accept") && _countOfJump > 0){
-			AirJump();
-		}
+        else if (Input.IsActionJustPressed("ui_accept") && _countOfJump > 0)
+        {
+            AirJump();
+        }
 
         // Get the input direction and handle the movement/deceleration.
         // As good practice, you should replace UI actions with custom gameplay actions.
-        direction = Input.GetVector("left", "right", "up", "down");
-        if (direction.X != 0 && _animatedSprite2D.Animation != "jump_end")
+        if (!IsDashing)
         {
-            velocity.X = direction.X * _speed;
+            direction = Input.GetVector("left", "right", "up", "down");
+            if (direction.X != 0 && _animatedSprite2D.Animation != "jump_end")
+            {
+                velocity.X = direction.X * _speed;
+            }
+            else
+            {
+                velocity.X = Mathf.MoveToward(Velocity.X, 0, _speed);
+            }
         }
-        else
+        if (Input.IsActionJustPressed("dash"))
         {
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, _speed);
+            if (Input.IsActionPressed("left"))
+            {
+                velocity.X = -_dashSpeed;
+				IsDashing = true;
+            }
+            else if (Input.IsActionPressed("right"))
+            {
+                velocity.X = _dashSpeed;
+				IsDashing = true;
+            }
+			_dashTimer = _dashTimerReset;
         }
+		if(IsDashing)
+		{
+			_dashTimer -= (float)delta;
+			if(_dashTimer <= 0 ){
+				IsDashing = false;
+			}
+		}
 
         Velocity = velocity;
         MoveAndSlide();
@@ -76,7 +104,7 @@ public partial class player : CharacterBody2D
     }
     public void animationUpdate()
     {
-        if (!_animationLock)
+        if (!AnimationLock)
         {
             if (!IsOnFloor())
             {
@@ -113,32 +141,35 @@ public partial class player : CharacterBody2D
     {
         velocity.Y = _jumpVelocity;
         _animatedSprite2D.Play("air_jump");
-        _animationLock = true;
+        AnimationLock = true;
     }
-	public void AirJump()
+    public void AirJump()
     {
         velocity.Y = _airJumpVelocity;
         _animatedSprite2D.Play("air_jump");
-        _animationLock = true;
-		_countOfJump--;
+        AnimationLock = true;
+        _countOfJump--;
     }
     public void Land()
     {
         _animatedSprite2D.Play("jump_end");
-        _animationLock = true;
+        AnimationLock = true;
 
     }
     public void _on_animated_sprite_2d_animation_finished()
     {
-        if (_animatedSprite2D.Animation == "jump_end"){
-            _animationLock = false;
-		}
-		else if(_animatedSprite2D.Animation == "jump_end"){
-			_animationLock = false;
-		}
-		else if(_animatedSprite2D.Animation == "air_jump"){
-			_animationLock = false;
-		}
-		
+        if (_animatedSprite2D.Animation == "jump_end")
+        {
+            AnimationLock = false;
+        }
+        else if (_animatedSprite2D.Animation == "jump_end")
+        {
+            AnimationLock = false;
+        }
+        else if (_animatedSprite2D.Animation == "air_jump")
+        {
+            AnimationLock = false;
+        }
+
     }
 }

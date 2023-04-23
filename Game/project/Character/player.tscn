@@ -409,6 +409,8 @@ height = 24.5499
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_lk1d2")
+_speed = 180.0
+_dashSpeed = 180.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-26, -42)
