@@ -16,11 +16,12 @@ public partial class player : CharacterBody2D
     public Vector2 velocity = new Vector2();
 
     AnimatedSprite2D _animatedSprite2D = new AnimatedSprite2D();
+	[Export] public PackedScene GhostPlayer;
 
     public bool AnimationLock = true;
     public bool WasInAir = false;
     public bool IsDashing = false;
-
+	
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
@@ -81,12 +82,17 @@ public partial class player : CharacterBody2D
             {
                 velocity.X = -_dashSpeed;
 				IsDashing = true;
+				
             }
             else if (Input.IsActionPressed("right"))
             {
                 velocity.X = _dashSpeed;
 				IsDashing = true;
             }
+			GhostPlayer _ghost = GhostPlayer.Instantiate() as GhostPlayer;
+			Owner.AddChild(_ghost);
+			_ghost.GlobalPosition = this.GlobalPosition;
+			_ghost.SetHValue(_animatedSprite2D.FlipH);
 			_dashTimer = _dashTimerReset;
         }
 		if(IsDashing)
@@ -123,8 +129,6 @@ public partial class player : CharacterBody2D
             }
 
         }
-
-
     }
     public void FlipUpdate()
     {
