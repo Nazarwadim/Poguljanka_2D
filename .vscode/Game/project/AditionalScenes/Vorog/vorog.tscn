@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bokeu0y2a7g3j"]
+
+[ext_resource type="PackedScene" uid="uid://t3xy8oogxlsm" path="res://AditionalScenes/entity/entity.tscn" id="1_rsnfm"]
+[ext_resource type="Texture2D" uid="uid://lpo63k4woir7" path="res://assets/player.png" id="2_iuju3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wy4sc"]
+size = Vector2(72, 74)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r8qwl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_iuju3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Vorog" instance=ExtResource("1_rsnfm")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_wy4sc")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_r8qwl")
