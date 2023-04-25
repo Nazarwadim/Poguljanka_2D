@@ -9,13 +9,16 @@ public partial class player : CharacterBody2D
     [Export] public float _airJumpVelocity = -222.0f;
     [Export] public int _countOfJump = 2;
     [Export] public float _acceleration = 1f;
+
 	public float _dashTimer = 0.15f;
 	public float _dashTimerReset = 0.15f;
 
-    public Vector2 direction = Vector2.Zero;
-    public Vector2 velocity = new Vector2();
 
-    AnimatedSprite2D _animatedSprite2D = new AnimatedSprite2D();
+    private Vector2 direction = Vector2.Zero;
+    private Vector2 velocity = Vector2.Zero;
+
+
+    private AnimatedSprite2D _animatedSprite2D;
 	[Export] public PackedScene GhostPlayer;
 
     public bool AnimationLock = true;
@@ -32,25 +35,7 @@ public partial class player : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        velocity = Velocity;
-
-        // Add the gravity.
-        if (!IsOnFloor())
-        {
-            velocity.Y += gravity * (float)delta;
-            WasInAir = true;
-        }
-        else
-        {
-            _countOfJump = 2;
-            if (WasInAir == true)
-            {
-                Land();
-            }
-            WasInAir = false;
-        }
-
-
+        velocity = Velocity;        
         // Handle Jump.
         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
         {
@@ -76,40 +61,50 @@ public partial class player : CharacterBody2D
                 velocity.X = Mathf.MoveToward(Velocity.X, 0, _speed);
             }
         }
+
+
+        playerDashing(delta);
+        gravitation(delta);
+        Velocity = velocity;
+        MoveAndSlide();
+        animationUpdate();
+    }
+
+    private void playerDashing(double delta)
+    {
         if (Input.IsActionJustPressed("dash"))
-        {
-            if (Input.IsActionPressed("left"))
+            _PlayerDashingStart();
+		if(IsDashing)
+		{
+            GetNode<AnimationPlayer>("GhostPlayerDash/Anim").Play("ToLowM");
+            
+			_dashTimer -= (float)delta;
+
+			if(_dashTimer <= 0 )
+            {
+				IsDashing = false;
+			}
+		}
+        GetNode<CanvasGroup>("GhostPlayerDash").Visible = IsDashing;
+    }
+    private void _PlayerDashingStart()
+    {
+        if (direction.X < 0)
             {
                 velocity.X = -_dashSpeed;
 				IsDashing = true;
 				
             }
-            else if (Input.IsActionPressed("right"))
+            else if(direction.X > 0)
             {
                 velocity.X = _dashSpeed;
 				IsDashing = true;
             }
-			GhostPlayer _ghost = GhostPlayer.Instantiate() as GhostPlayer;
-			Owner.AddChild(_ghost);
-			_ghost.GlobalPosition = this.GlobalPosition;
-			_ghost.SetHValue(_animatedSprite2D.FlipH);
-			_dashTimer = _dashTimerReset;
-        }
-		if(IsDashing)
-		{
-			_dashTimer -= (float)delta;
-			if(_dashTimer <= 0 ){
-				IsDashing = false;
-			}
-		}
-
-        Velocity = velocity;
-        MoveAndSlide();
-        animationUpdate();
-        FlipUpdate();
+		_dashTimer = _dashTimerReset;
     }
     public void animationUpdate()
     {
+        _animatedSprite2D.FlipH = Helper.FlipUpdate(direction.X);
         if (!AnimationLock)
         {
             if (!IsOnFloor())
@@ -130,17 +125,6 @@ public partial class player : CharacterBody2D
 
         }
     }
-    public void FlipUpdate()
-    {
-        if (direction.X > 0)
-        {
-            _animatedSprite2D.FlipH = false;
-        }
-        else if (direction.X < 0)
-        {
-            _animatedSprite2D.FlipH = true;
-        }
-    }
     public void Jump()
     {
         velocity.Y = _jumpVelocity;
@@ -158,22 +142,30 @@ public partial class player : CharacterBody2D
     {
         _animatedSprite2D.Play("jump_end");
         AnimationLock = true;
-
     }
+
     public void _on_animated_sprite_2d_animation_finished()
     {
-        if (_animatedSprite2D.Animation == "jump_end")
+        if (_animatedSprite2D.Animation == "jump_end" || _animatedSprite2D.Animation == "air_jump")
         {
             AnimationLock = false;
         }
-        else if (_animatedSprite2D.Animation == "jump_end")
-        {
-            AnimationLock = false;
-        }
-        else if (_animatedSprite2D.Animation == "air_jump")
-        {
-            AnimationLock = false;
-        }
-
     }
-}
+    private void gravitation(double delta)
+    {
+        if (!IsOnFloor())
+        {
+            velocity.Y += gravity * (float)delta;
+            WasInAir = true;
+        }
+        else
+        {
+            _countOfJump = 2;
+            if (WasInAir == true)
+            {
+                Land();
+            }
+            WasInAir = false;
+        }
+    }
+};

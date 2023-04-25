@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://b6sn2fuuuamlp"]
+[gd_scene load_steps=59 format=3 uid="uid://b6sn2fuuuamlp"]
 
 [ext_resource type="Script" path="res://Character/player.cs" id="1_lk1d2"]
 [ext_resource type="Texture2D" uid="uid://b4sf4c5cumeah" path="res://oak_woods_v1.0/character/char_blue.png" id="1_lkjgj"]
@@ -407,6 +407,44 @@ animations = [{
 radius = 7.36498
 height = 24.5499
 
+[sub_resource type="Animation" id="Animation_5m5l4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qbtei"]
+resource_name = "ToLowM"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u1ywk"]
+_data = {
+"RESET": SubResource("Animation_5m5l4"),
+"ToLowM": SubResource("Animation_qbtei")
+}
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_lk1d2")
 _speed = 180.0
@@ -423,5 +461,24 @@ centered = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1.222, 1.222)
 shape = SubResource("CapsuleShape2D_pvfov")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="GhostPlayerDash" type="CanvasGroup" parent="."]
+
+[node name="Anim" type="AnimationPlayer" parent="GhostPlayerDash"]
+root_node = NodePath("../Ghost2D")
+libraries = {
+"": SubResource("AnimationLibrary_u1ywk")
+}
+
+[node name="Ghost2D" type="Sprite2D" parent="GhostPlayerDash"]
+position = Vector2(-25, -40)
+texture = ExtResource("1_lkjgj")
+centered = false
+hframes = 8
+vframes = 7
+frame = 25
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
