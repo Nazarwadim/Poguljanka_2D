@@ -1,7 +1,8 @@
-[gd_scene load_steps=59 format=3 uid="uid://b6sn2fuuuamlp"]
+[gd_scene load_steps=61 format=3 uid="uid://b6sn2fuuuamlp"]
 
-[ext_resource type="Script" path="res://Character/player.cs" id="1_lk1d2"]
 [ext_resource type="Texture2D" uid="uid://b4sf4c5cumeah" path="res://oak_woods_v1.0/character/char_blue.png" id="1_lkjgj"]
+[ext_resource type="Script" path="res://Character/Player.cs" id="1_uebcv"]
+[ext_resource type="Script" path="res://Character/Animation.cs" id="3_14255"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nw4jh"]
 atlas = ExtResource("1_lkjgj")
@@ -408,7 +409,7 @@ radius = 7.36498
 height = 24.5499
 
 [sub_resource type="Animation" id="Animation_5m5l4"]
-length = 0.001
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -421,9 +422,33 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-25, -40)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="Animation" id="Animation_qbtei"]
-resource_name = "ToLowM"
+[sub_resource type="Animation" id="Animation_w28ar"]
+resource_name = "right"
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -438,17 +463,80 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-25, -40), Vector2(75, -40)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ca6cw"]
+resource_name = "left"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-25, -40), Vector2(-125, -40)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u1ywk"]
 _data = {
 "RESET": SubResource("Animation_5m5l4"),
-"ToLowM": SubResource("Animation_qbtei")
+"left": SubResource("Animation_ca6cw"),
+"right": SubResource("Animation_w28ar")
 }
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_lk1d2")
-_speed = 180.0
-_dashSpeed = 180.0
+script = ExtResource("1_uebcv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-26, -42)
@@ -457,6 +545,7 @@ animation = &"air_jump"
 frame = 2
 frame_progress = 1.0
 centered = false
+script = ExtResource("3_14255")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1.222, 1.222)
@@ -464,6 +553,7 @@ shape = SubResource("CapsuleShape2D_pvfov")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.15
+one_shot = true
 
 [node name="GhostPlayerDash" type="CanvasGroup" parent="."]
 
@@ -480,5 +570,3 @@ centered = false
 hframes = 8
 vframes = 7
 frame = 25
-
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

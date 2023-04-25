@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class player : CharacterBody2D
+public partial class Player : CharacterBody2D
 {
     [Export] public float _speed;
     [Export] public float _dashSpeed;
@@ -10,18 +10,15 @@ public partial class player : CharacterBody2D
     [Export] public int _countOfJump = 2;
     [Export] public float _acceleration = 1f;
 
-	public float _dashTimer = 0.15f;
-	public float _dashTimerReset = 0.15f;
 
 
     private Vector2 direction = Vector2.Zero;
     private Vector2 velocity = Vector2.Zero;
 
 
-    private AnimatedSprite2D _animatedSprite2D;
+    private Animation _animatedSprite2D;
 	[Export] public PackedScene GhostPlayer;
 
-    public bool AnimationLock = true;
     public bool WasInAir = false;
     public bool IsDashing = false;
 	
@@ -30,21 +27,35 @@ public partial class player : CharacterBody2D
 
     public override void _Ready()
     {
-        _animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        _animatedSprite2D = GetNode<Animation>("AnimatedSprite2D");
+        GetNode<Timer>("Timer").Timeout += _DashEnd;
     }
 
     public override void _PhysicsProcess(double delta)
     {
         velocity = Velocity;        
-        // Handle Jump.
+        
+        
+
+        _ControlUpdate();
+        _PlayerDashing(delta);
+        _Gravitation(delta);
+        MoveAndSlide();
+
+
+        Velocity = velocity;
+    }
+
+    private void _ControlUpdate()
+    {
         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
         {
-            Jump();
+            _Jump();
             _countOfJump--;
         }
         else if (Input.IsActionJustPressed("ui_accept") && _countOfJump > 0)
         {
-            AirJump();
+            _AirJump();
         }
 
         // Get the input direction and handle the movement/deceleration.
@@ -61,97 +72,57 @@ public partial class player : CharacterBody2D
                 velocity.X = Mathf.MoveToward(Velocity.X, 0, _speed);
             }
         }
-
-
-        playerDashing(delta);
-        gravitation(delta);
-        Velocity = velocity;
-        MoveAndSlide();
-        animationUpdate();
+    }
+    private void _Jump()
+    {
+        velocity.Y = _jumpVelocity;
+        _animatedSprite2D.Jump();
+    }
+    private void _AirJump()
+    {
+        velocity.Y = _airJumpVelocity;
+        _animatedSprite2D.AirJump();
+        _countOfJump--;
     }
 
-    private void playerDashing(double delta)
+    private void _PlayerDashing(double delta)
     {
         if (Input.IsActionJustPressed("dash"))
             _PlayerDashingStart();
 		if(IsDashing)
 		{
-            GetNode<AnimationPlayer>("GhostPlayerDash/Anim").Play("ToLowM");
-            
-			_dashTimer -= (float)delta;
-
-			if(_dashTimer <= 0 )
+            if(velocity.X > 0)
             {
-				IsDashing = false;
-			}
+                GetNode<AnimationPlayer>("GhostPlayerDash/Anim").Play("left");
+            }
+            else{
+                GetNode<AnimationPlayer>("GhostPlayerDash/Anim").Play("right");
+            }
 		}
         GetNode<CanvasGroup>("GhostPlayerDash").Visible = IsDashing;
     }
     private void _PlayerDashingStart()
     {
+        if(direction.X == 0) return;
+
+        GetNode<Timer>("Timer").Start();
+        IsDashing = true;
+
         if (direction.X < 0)
-            {
-                velocity.X = -_dashSpeed;
-				IsDashing = true;
-				
-            }
-            else if(direction.X > 0)
-            {
-                velocity.X = _dashSpeed;
-				IsDashing = true;
-            }
-		_dashTimer = _dashTimerReset;
-    }
-    public void animationUpdate()
-    {
-        _animatedSprite2D.FlipH = Helper.FlipUpdate(direction.X);
-        if (!AnimationLock)
         {
-            if (!IsOnFloor())
-            {
-                _animatedSprite2D.Play("jump_loop");
-            }
-            else
-            {
-                if (direction.X != 0)
-                {
-                    _animatedSprite2D.Play("run");
-                }
-                else
-                {
-                    _animatedSprite2D.Play("idle");
-                }
-            }
-
+            velocity.X = -_dashSpeed;
+			return;
         }
-    }
-    public void Jump()
-    {
-        velocity.Y = _jumpVelocity;
-        _animatedSprite2D.Play("air_jump");
-        AnimationLock = true;
-    }
-    public void AirJump()
-    {
-        velocity.Y = _airJumpVelocity;
-        _animatedSprite2D.Play("air_jump");
-        AnimationLock = true;
-        _countOfJump--;
-    }
-    public void Land()
-    {
-        _animatedSprite2D.Play("jump_end");
-        AnimationLock = true;
+
+        velocity.X = _dashSpeed;
     }
 
-    public void _on_animated_sprite_2d_animation_finished()
+    private void _DashEnd()
     {
-        if (_animatedSprite2D.Animation == "jump_end" || _animatedSprite2D.Animation == "air_jump")
-        {
-            AnimationLock = false;
-        }
+        IsDashing = false;
     }
-    private void gravitation(double delta)
+
+    private void _Gravitation(double delta)
     {
         if (!IsOnFloor())
         {
@@ -163,7 +134,7 @@ public partial class player : CharacterBody2D
             _countOfJump = 2;
             if (WasInAir == true)
             {
-                Land();
+                _animatedSprite2D.Land();
             }
             WasInAir = false;
         }
