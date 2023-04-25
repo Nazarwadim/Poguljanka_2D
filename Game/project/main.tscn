@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://ddscs1c523q14"]
+[gd_scene load_steps=9 format=3 uid="uid://ddscs1c523q14"]
 
 [ext_resource type="Texture2D" uid="uid://bggxmnkigkxr8" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="1_1pcv6"]
 [ext_resource type="PackedScene" uid="uid://b6sn2fuuuamlp" path="res://Character/player.tscn" id="2_b8xic"]
 [ext_resource type="Texture2D" uid="uid://q5uiq1v64rlx" path="res://oak_woods_v1.0/decorations/lamp.png" id="4_g234m"]
-[ext_resource type="Texture2D" uid="uid://b4sf4c5cumeah" path="res://oak_woods_v1.0/character/char_blue.png" id="4_q6vt8"]
 [ext_resource type="Texture2D" uid="uid://chjm8d5uxx7du" path="res://oak_woods_v1.0/decorations/rock_1.png" id="5_m0mgv"]
 [ext_resource type="Texture2D" uid="uid://bmktxam2au1bv" path="res://oak_woods_v1.0/decorations/fence_1.png" id="6_1sgu1"]
 [ext_resource type="Texture2D" uid="uid://c6sqwgwvxy7pl" path="res://oak_woods_v1.0/decorations/sign.png" id="7_eelvy"]
@@ -1241,64 +1240,6 @@ texture = ExtResource("1_1pcv6")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_uc1po")
 
-[sub_resource type="CSharpScript" id="CSharpScript_rw0ou"]
-script/source = "using Godot;
-using System;
-
-public partial class GhostPlayer : Node2D
-{
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		GetNode<AnimationPlayer>(\"AnimationPlayer\").Play(\"FadeOut\");
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-public void SetHValue(bool value){
-		GetNode<Sprite2D>(\"Ghost2D\").FlipH = value;
-	}
-}
-"
-
-[sub_resource type="Animation" id="Animation_rolrj"]
-resource_name = "FadeOut"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Ghost2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.3),
-"transitions": PackedFloat32Array(0.435275, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gkvqm"]
-_data = {
-"FadeOut": SubResource("Animation_rolrj")
-}
-
-[sub_resource type="PackedScene" id="PackedScene_e34g2"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"names": PackedStringArray("GhostPlayer", "script", "Node2D", "Ghost2D", "position", "texture", "centered", "hframes", "vframes", "frame", "Sprite2D", "AnimationPlayer", "libraries"),
-"node_count": 3,
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 2, 0, -1, 1, 1, 0, 0, 0, 0, 10, 3, -1, 6, 4, 1, 5, 2, 6, 3, 7, 4, 8, 5, 9, 6, 0, 0, 0, 11, 11, -1, 1, 12, 7, 0),
-"variants": [SubResource("CSharpScript_rw0ou"), Vector2(-25, -41), ExtResource("4_q6vt8"), false, 8, 7, 25, {
-"": SubResource("AnimationLibrary_gkvqm")
-}],
-"version": 3
-}
-
 [node name="Game" type="Node2D"]
 position = Vector2(0, -2)
 
@@ -1322,7 +1263,6 @@ layer_0/tile_data = PackedInt32Array(327680, 0, 0, 327681, 65536, 0, 327682, 131
 position = Vector2(20, 42)
 _speed = 150.0
 _dashSpeed = 500.0
-GhostPlayer = SubResource("PackedScene_e34g2")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
@@ -1338,6 +1278,7 @@ position = Vector2(140, 53)
 texture = ExtResource("5_m0mgv")
 
 [node name="Fence1" type="Sprite2D" parent="Decoration"]
+z_index = 4
 position = Vector2(699, 48)
 texture = ExtResource("6_1sgu1")
 

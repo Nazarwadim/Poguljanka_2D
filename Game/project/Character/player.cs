@@ -5,37 +5,33 @@ public partial class Player : CharacterBody2D
 {
     [Export] public float _speed;
     [Export] public float _dashSpeed;
-    [Export] public float _jumpVelocity = -300.0f;
-    [Export] public float _airJumpVelocity = -222.0f;
-    [Export] public int _countOfJump = 2;
-    [Export] public float _acceleration = 1f;
+    [Export] public float _jumpVelocity;
+    [Export] public float _airJumpVelocity;
+    [Export] public float _acceleration;
 
-
+    
 
     private Vector2 direction = Vector2.Zero;
-    private Vector2 velocity = Vector2.Zero;
-
-
+    private Vector2 velocity;
     private Animation _animatedSprite2D;
-	[Export] public PackedScene GhostPlayer;
-
     public bool WasInAir = false;
     public bool IsDashing = false;
 	
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
+
     public override void _Ready()
     {
         _animatedSprite2D = GetNode<Animation>("AnimatedSprite2D");
-        GetNode<Timer>("Timer").Timeout += _DashEnd;
+        GetNode<Timer>("GhostPlayerDash/Timer").Timeout += _DashEnd;
     }
 
     public override void _PhysicsProcess(double delta)
     {
         velocity = Velocity;        
         
-        
+        GetNode<ProgressBar>("ProgressBar").Value = 100 * (GetNode<Timer>("GhostPlayerDash/Dalay").WaitTime - GetNode<Timer>("GhostPlayerDash/Dalay").TimeLeft) / GetNode<Timer>("GhostPlayerDash/Dalay").WaitTime;
 
         _ControlUpdate();
         _PlayerDashing(delta);
@@ -46,6 +42,8 @@ public partial class Player : CharacterBody2D
         Velocity = velocity;
     }
 
+
+    [Export] public int _countOfJump;
     private void _ControlUpdate()
     {
         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
@@ -102,10 +100,11 @@ public partial class Player : CharacterBody2D
         GetNode<CanvasGroup>("GhostPlayerDash").Visible = IsDashing;
     }
     private void _PlayerDashingStart()
-    {
-        if(direction.X == 0) return;
+    {   
+        if(direction.X == 0 || !GetNode<Timer>("GhostPlayerDash/Dalay").IsStopped()) return;
 
-        GetNode<Timer>("Timer").Start();
+        GetNode<Timer>("GhostPlayerDash/Dalay").Start();
+        GetNode<Timer>("GhostPlayerDash/Timer").Start();
         IsDashing = true;
 
         if (direction.X < 0)
@@ -115,11 +114,13 @@ public partial class Player : CharacterBody2D
         }
 
         velocity.X = _dashSpeed;
+        
     }
 
     private void _DashEnd()
     {
         IsDashing = false;
+        _animatedSprite2D.Attack();
     }
 
     private void _Gravitation(double delta)
@@ -140,3 +141,4 @@ public partial class Player : CharacterBody2D
         }
     }
 };
+

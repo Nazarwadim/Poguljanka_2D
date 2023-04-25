@@ -245,7 +245,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
-"speed": 12.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -536,24 +536,23 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 3
 script = ExtResource("1_uebcv")
+_jumpVelocity = -300.0
+_airJumpVelocity = -222.0
+_acceleration = 1.0
+_countOfJump = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-26, -42)
 sprite_frames = SubResource("SpriteFrames_1mnyl")
-animation = &"air_jump"
-frame = 2
-frame_progress = 1.0
+animation = &"attack"
 centered = false
 script = ExtResource("3_14255")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1.222, 1.222)
 shape = SubResource("CapsuleShape2D_pvfov")
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.15
-one_shot = true
 
 [node name="GhostPlayerDash" type="CanvasGroup" parent="."]
 
@@ -570,3 +569,29 @@ centered = false
 hframes = 8
 vframes = 7
 frame = 25
+
+[node name="Timer" type="Timer" parent="GhostPlayerDash"]
+wait_time = 0.15
+one_shot = true
+
+[node name="Dalay" type="Timer" parent="GhostPlayerDash"]
+wait_time = 1.1
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(1, 1, 0.101961, 0.360784)
+self_modulate = Color(0, 0.0784314, 1, 1)
+z_index = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -25.0
+offset_right = 9.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
