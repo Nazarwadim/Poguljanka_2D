@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1ndriirh48hi"]
+[gd_scene load_steps=9 format=3 uid="uid://bpcwxyd42os11"]
 
 [ext_resource type="Texture2D" uid="uid://bggxmnkigkxr8" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="1_1pcv6"]
 [ext_resource type="PackedScene" uid="uid://b6sn2fuuuamlp" path="res://Character/player.tscn" id="2_b8xic"]
@@ -1263,6 +1263,9 @@ layer_0/tile_data = PackedInt32Array(327680, 0, 0, 327681, 65536, 0, 327682, 131
 position = Vector2(20, 42)
 _speed = 150.0
 _dashSpeed = 500.0
+_jumpVelocity = -400.0
+_airJumpVelocity = -100.0
+_countOfJump = 2
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
