@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://xjlxlnucdepc"]
+[gd_scene load_steps=28 format=3 uid="uid://xjlxlnucdepc"]
 
 [ext_resource type="Texture2D" uid="uid://d1obrmqdb8ukg" path="res://Art/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_DeathNoMovement.png" id="1_4i47i"]
 [ext_resource type="Texture2D" uid="uid://04ecn6qsqffd" path="res://Art/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png" id="1_45l5t"]
 [ext_resource type="Script" path="res://Enemy/Knight/knight.gd" id="1_rwdsl"]
 [ext_resource type="Texture2D" uid="uid://22y4cqmaxtyr" path="res://Art/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Run.png" id="2_efs37"]
+[ext_resource type="Texture2D" uid="uid://c0uiupojcai4o" path="res://Art/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Hit.png" id="2_n2q0w"]
 [ext_resource type="Script" path="res://Enemy/Knight/Damageable.gd" id="2_oys8n"]
 [ext_resource type="Script" path="res://Character/CharacterStateMachine.gd" id="4_ejewa"]
 [ext_resource type="Script" path="res://Enemy/Knight/IdleStage.gd" id="5_3lhxa"]
@@ -149,10 +150,51 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
 }
 
+[sub_resource type="Animation" id="Animation_aefwl"]
+resource_name = "hit"
+length = 0.45
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_n2q0w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tyl3b"]
 _data = {
 "RESET": SubResource("Animation_32aak"),
 "dead": SubResource("Animation_jsii0"),
+"hit": SubResource("Animation_aefwl"),
 "idle": SubResource("Animation_wol5t"),
 "run": SubResource("Animation_6d7r3")
 }
@@ -160,20 +202,29 @@ _data = {
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_30nv1"]
 animation = &"dead"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sqxee"]
+animation = &"hit"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jami5"]
 animation = &"run"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wbpvy"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_21ucu"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vwsir"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4pwmx"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nuvmh"]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ktgu5"]
 states/dead/node = SubResource("AnimationNodeAnimation_30nv1")
-states/dead/position = Vector2(539, 100)
+states/dead/position = Vector2(504, 18)
+states/hit/node = SubResource("AnimationNodeAnimation_sqxee")
+states/hit/position = Vector2(362, 18)
 states/run/node = SubResource("AnimationNodeAnimation_jami5")
-states/run/position = Vector2(368, 100)
-transitions = ["Start", "run", SubResource("AnimationNodeStateMachineTransition_wbpvy"), "run", "dead", SubResource("AnimationNodeStateMachineTransition_21ucu")]
+states/run/position = Vector2(362, 100)
+transitions = ["Start", "run", SubResource("AnimationNodeStateMachineTransition_wbpvy"), "run", "hit", SubResource("AnimationNodeStateMachineTransition_vwsir"), "hit", "dead", SubResource("AnimationNodeStateMachineTransition_4pwmx"), "hit", "run", SubResource("AnimationNodeStateMachineTransition_nuvmh")]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_wme85"]
 
@@ -190,9 +241,8 @@ shape = SubResource("RectangleShape2D_fp042")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-3.39703, 0)
-texture = ExtResource("2_efs37")
+texture = ExtResource("2_n2q0w")
 flip_h = true
-hframes = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -220,15 +270,16 @@ script = ExtResource("5_3lhxa")
 script = ExtResource("6_wubt3")
 can_move = false
 
-[node name="Hit" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("damageable", "dead_state", "return_state")]
+[node name="Hit" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("damageable", "dead_state", "hit_state", "return_state")]
 script = ExtResource("7_d0yc0")
 damageable = NodePath("../../Damageable")
 dead_state = NodePath("../Dead")
+hit_state = NodePath(".")
 return_state = NodePath("../Run")
 can_move = false
 
 [node name="Timer" type="Timer" parent="CharacterStateMachine/Hit"]
-wait_time = 0.075
+wait_time = 0.129
 one_shot = true
 
 [node name="Run" type="Node" parent="CharacterStateMachine"]
