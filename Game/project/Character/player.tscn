@@ -420,7 +420,7 @@ states/jump_start/position = Vector2(392, -6)
 states/move/node = SubResource("AnimationNodeBlendSpace1D_bjy5n")
 states/move/position = Vector2(392, 100)
 transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_i4ph4"), "move", "jump_start", SubResource("AnimationNodeStateMachineTransition_2puwh"), "jump_start", "jump_end", SubResource("AnimationNodeStateMachineTransition_50dqq"), "jump_end", "move", SubResource("AnimationNodeStateMachineTransition_3ny4h"), "jump_start", "double_jump", SubResource("AnimationNodeStateMachineTransition_kd0lq"), "double_jump", "jump_end", SubResource("AnimationNodeStateMachineTransition_8aae2"), "move", "attack1", SubResource("AnimationNodeStateMachineTransition_rudo6"), "attack1", "attack2", SubResource("AnimationNodeStateMachineTransition_u0b6v"), "attack1", "move", SubResource("AnimationNodeStateMachineTransition_u41ag"), "attack2", "move", SubResource("AnimationNodeStateMachineTransition_5iqvr")]
-graph_offset = Vector2(8, 44.076)
+graph_offset = Vector2(8, -73.7284)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_d8kh5"]
 
@@ -438,8 +438,8 @@ shape = SubResource("CapsuleShape2D_ry2ya")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-4, 9)
-texture = ExtResource("2_yup8x")
-hframes = 8
+texture = ExtResource("5_fhfe2")
+hframes = 15
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -483,7 +483,6 @@ ground_state = NodePath("../Ground")
 [node name="Attack" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("return_state")]
 script = ExtResource("10_ddb3a")
 return_state = NodePath("../Ground")
-can_move = false
 
 [node name="Timer" type="Timer" parent="CharacterStateMachine/Attack"]
 wait_time = 0.35
@@ -501,12 +500,13 @@ state_machine = NodePath("../CharacterStateMachine")
 [node name="Sword" type="Area2D" parent="." node_paths=PackedStringArray("player", "facing_shape")]
 collision_layer = 0
 collision_mask = 4
+monitoring = false
 script = ExtResource("12_djfr1")
 player = NodePath("..")
 facing_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
-position = Vector2(21, 9)
+position = Vector2(24, 9)
 shape = SubResource("RectangleShape2D_fsi4n")
 script = ExtResource("13_18oxh")
 facing_left_position = Vector2(21, 0)

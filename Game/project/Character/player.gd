@@ -24,7 +24,8 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	direction = Input.get_vector("left", "right", "up", "down")
+	if is_on_floor():
+		direction = Input.get_vector("left", "right", "up", "down")
 	
 	# Control whether to move or not to move
 	if direction.x != 0 && state_machine.check_if_can_move():

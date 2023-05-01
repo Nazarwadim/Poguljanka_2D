@@ -23,6 +23,6 @@ func on_exit():
 		has_double_jumped = false
 
 func double_jump():
-	character.velocity.y = double_jump_velocity
-	playback.travel(double_jump_animation)
+	# character.velocity.y = double_jump_velocity
+	# playback.travel(double_jump_animation)
 	has_double_jumped = true
