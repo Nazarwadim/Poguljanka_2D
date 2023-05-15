@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbhuv7na238x6"]
+
+[ext_resource type="Script" path="res://Entity/Entity.cs" id="1_0foss"]
+[ext_resource type="Script" path="res://StateMashine/StateMashine.cs" id="2_k218a"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tbtj3"]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_qi6qw"]
+
+[node name="Entity" type="CharacterBody2D"]
+script = ExtResource("1_0foss")
+
+[node name="CharSprite" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CharSprite")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_tbtj3")
+anim_player = NodePath("../AnimationPlayer")
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_qi6qw")
+
+[node name="StateMashine" type="Node" parent="."]
+script = ExtResource("2_k218a")
