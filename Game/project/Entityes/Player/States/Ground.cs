@@ -7,28 +7,43 @@ public partial class Ground : Node, IState
     public CharacterBody2D Character{get;set;}
     public AnimationPlayer Animation {get;set;}
 
-    private StateMashine _mashine;
+    [Export] public float JumpVelosity = -150f;
+    public StateMashine Mashine {get;set;}
+
     private Timer _dalay;
+    private Air _air;
+    private Attack _attack;
 
     public override void _Ready()
     {
         _dalay = GetNode<Timer>("Dalay");
+        _air = GetNode<Air>("../Air");
+        _attack = GetNode<Attack>("../Attack");
     }
     public void Enter()
     {
-        _mashine.CanMove = true;
+        GD.Print("State Ground");
+        Animation.Play("Idle");
+        Mashine.CanMove = true;
     }
     
     public void Update(double delta)
     {
-        if(!Character.IsOnFloor() && _dalay.IsStopped())
+        if(Character.IsOnFloor() == false)
         {
-            _mashine.SetNextState(new Air());
+            NextState = _air;
+        }
+        if(Character.Velocity.X != 0){
+            Animation.CurrentAnimation = "run";
+        }
+        else{
+            
+            Animation.CurrentAnimation = "Idle";
         }
     }
     public void Exit()
     {
-
+        
     }
     public void StateInput(InputEvent @event)
     {
@@ -41,14 +56,16 @@ public partial class Ground : Node, IState
             _Attack();
         }
     }
+    
     private void _Jump()
     {
-                
+        Vector2 velocity =  Character.Velocity;
+        velocity.Y += JumpVelosity;
+        Character.Velocity = velocity;
     }
 
     private void _Attack()
     {
-        _mashine.SetNextState(new Attack());
-        Animation.Play("attack_1");
+        NextState = _attack;
     }
 }

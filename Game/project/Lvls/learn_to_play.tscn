@@ -1,10 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://pjyvjuakcdrl"]
+[gd_scene load_steps=3 format=3 uid="uid://pjyvjuakcdrl"]
 
 [ext_resource type="PackedScene" uid="uid://dxejte2nv223" path="res://Entityes/Player/player.tscn" id="1_6gg1d"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w8tl8"]
+size = Vector2(701.5, 127)
+
 [node name="LearnToPlay" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(157, 6)
+zoom = Vector2(1.5, 1.5)
 
 [node name="Player" parent="." instance=ExtResource("1_6gg1d")]
 position = Vector2(63, -25)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(168, 158)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_left = -351.0
+offset_top = -63.0
+offset_right = 351.0
+offset_bottom = 62.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_w8tl8")

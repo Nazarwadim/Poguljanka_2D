@@ -276,14 +276,25 @@ parameters/playback = SubResource("AnimationNodeStateMachinePlayback_e375b")
 
 [node name="Ground" type="Node" parent="StateMashine" index="0"]
 script = ExtResource("7_sghwo")
+JumpVelosity = -400.0
 
 [node name="Dalay" type="Timer" parent="StateMashine/Ground" index="0"]
+wait_time = 0.111
+one_shot = true
 
 [node name="Landing" type="Node" parent="StateMashine" index="1"]
 script = ExtResource("8_gcdl5")
+
+[node name="Dalay" type="Timer" parent="StateMashine/Landing" index="0"]
+wait_time = 0.18
+one_shot = true
 
 [node name="Air" type="Node" parent="StateMashine" index="2"]
 script = ExtResource("9_vpl53")
 
 [node name="Attack" type="Node" parent="StateMashine" index="3"]
 script = ExtResource("10_qrt0y")
+
+[node name="Dalay" type="Timer" parent="StateMashine/Attack" index="0"]
+wait_time = 0.32
+one_shot = true

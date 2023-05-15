@@ -22,13 +22,14 @@ public partial class StateMashine : Node
             {
                 temp.Character = _character;
                 temp.Animation = _animation;
+                temp.Mashine = this;
                 _states.Add(temp);  
                 
-                {}GD.Print(temp.GetType().Name);
             }
         }
 
         _currentState = _states[0];
+        _currentState.Enter();
 
         if(_states.Count == 0)
         {
@@ -38,17 +39,11 @@ public partial class StateMashine : Node
 
     public override void _Process(double delta)
     {
-        if(_currentState.NextState !=null)
+        if(_currentState.NextState != null)
         {
             _SwitchStates(_currentState.NextState);
         }
-    }
-
-    public void SetNextState(IState State)
-    {
-        State.Character = _character;
-        State.Animation = _animation;
-        _currentState.NextState = State;
+         _currentState.Update(delta);
     }
 
     public override void _Input(InputEvent @event)
@@ -62,6 +57,7 @@ public partial class StateMashine : Node
         {
             _currentState.Exit();
             _currentState = State;
+            State.NextState = null;
             State.Enter();
         }
     }
