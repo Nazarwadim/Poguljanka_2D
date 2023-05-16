@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbhuv7na238x6"]
+
+[ext_resource type="Script" path="res://Entity/Entity.cs" id="1_0foss"]
+[ext_resource type="Script" path="res://StateMashine/StateMashine.cs" id="2_k218a"]
+[ext_resource type="Script" path="res://Entity/States/Die.cs" id="3_dfm2p"]
+
+[sub_resource type="Animation" id="Animation_6w5nb"]
+resource_name = "damage"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CharSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.282353, 0.486275, 0.490196), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hadck"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CharSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_obdw7"]
+_data = {
+"RESET": SubResource("Animation_hadck"),
+"damage": SubResource("Animation_6w5nb")
+}
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tbtj3"]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_qi6qw"]
+
+[node name="Entity" type="CharacterBody2D"]
+script = ExtResource("1_0foss")
+
+[node name="CharSprite" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Damage" type="AnimationPlayer" parent="."]
+editor_description = "this async play your damage"
+root_node = NodePath("../AnimationPlayer")
+libraries = {
+"": SubResource("AnimationLibrary_obdw7")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CharSprite")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_tbtj3")
+anim_player = NodePath("../AnimationPlayer")
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_qi6qw")
+
+[node name="StateMashine" type="Node" parent="."]
+editor_description = "First state is state that starts first
+The last state must be Die state"
+script = ExtResource("2_k218a")
+
+[node name="Ground" type="Node" parent="StateMashine"]
+
+[node name="Landing" type="Node" parent="StateMashine"]
+
+[node name="Air" type="Node" parent="StateMashine"]
+
+[node name="Attack" type="Node" parent="StateMashine"]
+
+[node name="Die" type="Node" parent="StateMashine"]
+script = ExtResource("3_dfm2p")
