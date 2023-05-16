@@ -4,12 +4,17 @@ using System;
 public partial class Landing : Node, IState
 {
     public IState NextState {get; set;}
-    public CharacterBody2D Character{get;set;}
+    public Entity Character{get;set;}
     public AnimationPlayer Animation {get;set;}
-    public StateMashine Mashine {get;set;}
+    public bool CanMove  {get; set;}
 
     private Timer _dalay;
     private Ground _ground;
+
+    public Landing()
+    {
+        CanMove = false;
+    }
     public override void _Ready()
     {
         _dalay = GetNode<Timer>("Dalay");
@@ -21,7 +26,6 @@ public partial class Landing : Node, IState
     {
         GD.Print("State Landing");
         Animation.Play("land");
-        Mashine.CanMove = false;
         _dalay.Start();
     }
 

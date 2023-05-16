@@ -4,11 +4,16 @@ using Godot;
 public partial class Ground : Node, IState
 {
     public IState NextState {get; set;}
-    public CharacterBody2D Character{get;set;}
+    public Entity Character{get;set;}
     public AnimationPlayer Animation {get;set;}
+    public bool CanMove  {get; set;}
 
     [Export] public float JumpVelosity = -150f;
-    public StateMashine Mashine {get;set;}
+    
+    public Ground()
+    {
+        CanMove = true;
+    }
 
     private Timer _dalay;
     private Air _air;
@@ -24,7 +29,6 @@ public partial class Ground : Node, IState
     {
         GD.Print("State Ground");
         Animation.Play("Idle");
-        Mashine.CanMove = true;
     }
     
     public void Update(double delta)

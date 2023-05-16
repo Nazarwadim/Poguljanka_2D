@@ -3,9 +3,18 @@ using System;
 
 public partial class Entity : CharacterBody2D
 {
-	protected readonly float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	[Export] public int Health = 10;
+	[Export] public int Armor = 0;
 
-	
+	public void GetDamage(int damage)
+	{
+		Health -= _CalculateDamage(damage);
+	}
+	private int _CalculateDamage(int damage)
+	{
+		return damage / (int)(1 + 0.1f* Armor); 
+	}
+	protected readonly float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 	protected void _UseGravity(double delta)
 	{
 		Vector2 velocity = Velocity;
@@ -15,16 +24,17 @@ public partial class Entity : CharacterBody2D
 		}
 		Velocity = velocity;
 	}
+
 	protected void _FlipBySpeed()
 	{
-		
+		Sprite2D spite = GetChild<Sprite2D>(0);
 		if(Velocity.X > 0)
 		{
-		 GetChild<Sprite2D>(0).FlipH = false;
+			spite.FlipH = false;
 		}
 		if(Velocity.X < 0)
 		{
-			GetChild<Sprite2D>(0).FlipH = true;
+			spite.FlipH = true;
 		}
 	}
 }

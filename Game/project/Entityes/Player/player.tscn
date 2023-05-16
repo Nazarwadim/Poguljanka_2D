@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dxejte2nv223"]
+[gd_scene load_steps=22 format=3 uid="uid://dxejte2nv223"]
 
 [ext_resource type="PackedScene" uid="uid://cbhuv7na238x6" path="res://Entity/Entity.tscn" id="1_jf5hy"]
 [ext_resource type="Texture2D" uid="uid://cf5vr3rdkcdr0" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Idle/Idle-Sheet.png" id="2_l8ahv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bvqkoppprkbil" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Run/Run-Sheet.png" id="3_ag4ck"]
 [ext_resource type="Texture2D" uid="uid://cwl6m881dulgh" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Attack-01/Attack-01-Sheet.png" id="4_aqxsb"]
 [ext_resource type="Texture2D" uid="uid://cilbq1jmxocd0" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Jumlp-All/Jump-All-Sheet.png" id="5_e5n1h"]
+[ext_resource type="Texture2D" uid="uid://bbpnlt5k5pp0f" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Dead/Dead-Sheet.png" id="7_hw6po"]
 [ext_resource type="Script" path="res://Entityes/Player/States/Ground.cs" id="7_sghwo"]
 [ext_resource type="Script" path="res://Entityes/Player/States/Landing.cs" id="8_gcdl5"]
 [ext_resource type="Script" path="res://Entityes/Player/States/Air.cs" id="9_vpl53"]
@@ -243,11 +244,51 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
+[sub_resource type="Animation" id="Animation_aawrv"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_hw6po")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 7]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ihnv3"]
 _data = {
 "Idle": SubResource("Animation_nwbiu"),
 "RESET": SubResource("Animation_n1tt1"),
 "attack_1": SubResource("Animation_inryk"),
+"die": SubResource("Animation_aawrv"),
 "jump_start": SubResource("Animation_183fv"),
 "land": SubResource("Animation_hthqd"),
 "run": SubResource("Animation_jpcy5")

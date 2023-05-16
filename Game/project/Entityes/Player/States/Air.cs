@@ -4,10 +4,14 @@ using System;
 public partial class Air : Node, IState
 {
     public IState NextState {get; set;}
-    public CharacterBody2D Character{get;set;}
+    public Entity Character{get;set;}
     public AnimationPlayer Animation {get;set;}
-    public StateMashine Mashine {get;set;}
-    
+    public bool CanMove  {get; set;}
+    public Air()
+    {
+        CanMove = false;
+    }
+
 
     private Attack _attack;
     private Landing _land;
@@ -22,7 +26,6 @@ public partial class Air : Node, IState
     {
         Animation.Play("jump_start");
         GD.Print("Air");
-        Mashine.CanMove = false;
     }
     
     public void Update(double delta)
