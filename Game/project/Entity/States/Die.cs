@@ -20,18 +20,19 @@ public partial class Die : Node, IState
     private async void PlayDie()
     {
         Animation.Play("die");
+
         await ToSignal(Animation, "animation_finished");
         Character.QueueFree();
     }
     public void Update(double delta)
     {
-
+        Vector2 velocity = Character.Velocity;
+        velocity.X = Mathf.MoveToward(velocity.X, 0, 500*(float)delta);
+        Character.Velocity = velocity;
     }
     
     public void StateInput(InputEvent @event)
-    {
-
-    }
+    {}
     public void Exit()
     {
         

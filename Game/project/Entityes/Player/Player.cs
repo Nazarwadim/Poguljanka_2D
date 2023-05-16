@@ -20,14 +20,17 @@ public partial class Player : Entity
 
     public override void _PhysicsProcess(double delta)
     {
-       if(_mashine.CanMove){
+       if(_mashine.CurrentState.CanMove){
             MovePlayer(delta);
        }
         _UseGravity(delta);
         _FlipBySpeed();
         MoveAndSlide();
     }
-
+    public override void _Process(double delta)
+    {
+        GetNode<ProgressBar>("Progress").Value = Health;
+    }
     private void MovePlayer(double delta)
     {
         Vector2 velocity = Velocity;

@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System;
 public partial class StateMashine : Node
 {
-    public bool CanMove = true;
     public bool IsWorking = true;
-
 
     private Entity _character;
     private AnimationPlayer _animation;
     private List<IState> _states;
-    private IState _currentState;
+    public IState CurrentState;
 
     
     public override void _Ready()
@@ -33,8 +31,8 @@ public partial class StateMashine : Node
             }
         }
 
-        _currentState = _states[0];
-        _currentState.Enter();
+        CurrentState = _states[0];
+        CurrentState.Enter();
 
         if(_states.Count == 0)
         {
@@ -47,15 +45,15 @@ public partial class StateMashine : Node
     {
         if(!IsWorking){ return;}
 
-        if(_currentState.NextState != null)
+        if(CurrentState.NextState != null)
         {
-            _SwitchStates(_currentState.NextState);
+            _SwitchStates(CurrentState.NextState);
         }
-         _currentState.Update(delta);
+         CurrentState.Update(delta);
         
         if(_character.Health <=0)
         {
-            _currentState.NextState = _states[_states.Count-1]; // the end of the states must be die state !!;
+            CurrentState.NextState = _states[_states.Count-1]; // the end of the states must be die state !!;
         }
     }
 
@@ -63,18 +61,17 @@ public partial class StateMashine : Node
     {
         if(!IsWorking){ return;}
 
-        _currentState.StateInput(@event);
+        CurrentState.StateInput(@event);
     }
 
     private void _SwitchStates(IState State)
     {
         if(!IsWorking){ return;}
 
-        if(_currentState != null)
+        if(CurrentState != null)
         {
-            _currentState.Exit();
-            _currentState = State;
-            CanMove = _currentState.CanMove;
+            CurrentState.Exit();
+            CurrentState = State;
             State.NextState = null;
             State.Enter();
         }

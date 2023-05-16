@@ -10,38 +10,30 @@ public partial class Attack : Node, IState
 
     public Attack()
     {
-        CanMove = false;
+        CanMove = true;
     }
 
-    private Timer _dalay;
     private Air _air;
     private Attack _attack;
     private Ground _ground;
     public override void _Ready()
     {
-        
         _air = GetNode<Air>("../Air");
-        _dalay = GetNode<Timer>("Dalay");
         _attack = GetNode<Attack>("../Attack");
         _ground = GetNode<Ground>("../Ground");
-
-        _dalay.Timeout +=Exit;
     }
-    public void Enter()
+    public async void Enter()
     {
-        GD.Print("Attack");
-        _dalay.Start();
+        {}GD.Print("Attack");
         Animation.Play("attack_1");
+        await ToSignal(Animation, "animation_finished");
+        NextState = _ground;
     }
     
     public void Update(double delta)
-    {
-        
+    {   
     }
-    public void Exit()
-    {
-        NextState = _ground;
-    }
+    public void Exit(){}
     public void StateInput(InputEvent @event)
     {
 

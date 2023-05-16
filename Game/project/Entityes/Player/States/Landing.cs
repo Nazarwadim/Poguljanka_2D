@@ -8,7 +8,6 @@ public partial class Landing : Node, IState
     public AnimationPlayer Animation {get;set;}
     public bool CanMove  {get; set;}
 
-    private Timer _dalay;
     private Ground _ground;
 
     public Landing()
@@ -17,22 +16,17 @@ public partial class Landing : Node, IState
     }
     public override void _Ready()
     {
-        _dalay = GetNode<Timer>("Dalay");
-        _ground = GetNode<Ground>("../Ground");
-        _dalay.Timeout += TimerTimeout;
+        _ground = GetNode<Ground>("../Ground");  
     }
 
-    public void Enter()
+    public async void Enter()
     {
-        GD.Print("State Landing");
+        {}GD.Print("State Landing");
         Animation.Play("land");
-        _dalay.Start();
-    }
-
-    public void TimerTimeout()
-    {
+        await ToSignal(Animation, "animation_finished");
         NextState = _ground;
     }
+
     public void Update(double delta)
     {
          

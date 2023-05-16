@@ -55,6 +55,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_n1tt1"]
 length = 0.001
@@ -81,6 +93,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(1, -7)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_inryk"]
@@ -162,6 +198,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(1, -7), Vector2(2, -4), Vector2(1, -4), Vector2(1, -3), Vector2(1, -2), Vector2(3, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_hthqd"]
 resource_name = "land"
@@ -201,6 +249,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [12, 13, 14]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(1, -7)]
 }
 
 [sub_resource type="Animation" id="Animation_jpcy5"]
@@ -243,6 +303,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_aawrv"]
 resource_name = "die"
@@ -282,6 +354,30 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 7]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.537255), Color(1, 1, 1, 0.211765), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(8, 7)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ihnv3"]
 _data = {
@@ -299,43 +395,42 @@ _data = {
 [node name="Player" instance=ExtResource("1_jf5hy")]
 script = ExtResource("2_qguq7")
 Speed = 300.0
+Health = 20
 
 [node name="CharSprite" parent="." index="0"]
-hframes = 8
+position = Vector2(1, -7)
+hframes = 4
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CapsuleShape2D_k1u4i")
 
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="3"]
 libraries = {
 "": SubResource("AnimationLibrary_ihnv3")
 }
 
-[node name="AnimationTree" parent="." index="3"]
+[node name="AnimationTree" parent="." index="4"]
 active = true
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_e375b")
 
-[node name="Ground" type="Node" parent="StateMashine" index="0"]
+[node name="Progress" type="ProgressBar" parent="." index="5"]
+modulate = Color(0.356863, 1, 1, 1)
+offset_left = -20.0
+offset_top = -35.0
+offset_right = 21.0
+offset_bottom = -26.0
+max_value = 20.0
+show_percentage = false
+
+[node name="Ground" parent="StateMashine" index="0"]
 script = ExtResource("7_sghwo")
 JumpVelosity = -400.0
 
-[node name="Dalay" type="Timer" parent="StateMashine/Ground" index="0"]
-wait_time = 0.111
-one_shot = true
-
-[node name="Landing" type="Node" parent="StateMashine" index="1"]
+[node name="Landing" parent="StateMashine" index="1"]
 script = ExtResource("8_gcdl5")
 
-[node name="Dalay" type="Timer" parent="StateMashine/Landing" index="0"]
-wait_time = 0.18
-one_shot = true
-
-[node name="Air" type="Node" parent="StateMashine" index="2"]
+[node name="Air" parent="StateMashine" index="2"]
 script = ExtResource("9_vpl53")
 
-[node name="Attack" type="Node" parent="StateMashine" index="3"]
+[node name="Attack" parent="StateMashine" index="3"]
 script = ExtResource("10_qrt0y")
-
-[node name="Dalay" type="Timer" parent="StateMashine/Attack" index="0"]
-wait_time = 0.32
-one_shot = true

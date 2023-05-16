@@ -8,7 +8,12 @@ public partial class Entity : CharacterBody2D
 
 	public void GetDamage(int damage)
 	{
-		Health -= _CalculateDamage(damage);
+		int difference = _CalculateDamage(damage);
+		if(difference != 0)
+		{
+			GetNode<AnimationPlayer>("Damage").Play("damage");
+			Health -= difference;
+		}
 	}
 	private int _CalculateDamage(int damage)
 	{
@@ -27,7 +32,7 @@ public partial class Entity : CharacterBody2D
 
 	protected void _FlipBySpeed()
 	{
-		Sprite2D spite = GetChild<Sprite2D>(0);
+		Sprite2D spite = GetNode<Sprite2D>("CharSprite");
 		if(Velocity.X > 0)
 		{
 			spite.FlipH = false;

@@ -25,16 +25,22 @@ public partial class Air : Node, IState
     public void Enter()
     {
         Animation.Play("jump_start");
-        GD.Print("Air");
+        {}GD.Print("Air");
     }
-    
+
+    private float _prevYSpeed;    
+    private const float MIN_Y_SPEED_FOR_DAMAGE = 450;
     public void Update(double delta)
     {
         if(Character.IsOnFloor() == true)
         {
-            // in this method i might add that it emit signal fall on the land and get damage....///
+            if(_prevYSpeed > MIN_Y_SPEED_FOR_DAMAGE){
+                {}GD.Print( "Damage is " +(int)(_prevYSpeed * 0.01f));
+                Character.GetDamage((int)(_prevYSpeed * 0.01f));
+            }
             NextState = _land;
         }
+        _prevYSpeed = Character.Velocity.Y;
     }
     public void Exit()
     {
