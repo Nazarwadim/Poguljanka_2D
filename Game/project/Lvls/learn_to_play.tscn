@@ -1,48 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://pjyvjuakcdrl"]
+[gd_scene load_steps=5 format=3 uid="uid://pjyvjuakcdrl"]
 
 [ext_resource type="PackedScene" uid="uid://dxejte2nv223" path="res://Entityes/Player/player.tscn" id="1_6gg1d"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w8tl8"]
-size = Vector2(701.5, 127)
+[ext_resource type="Texture2D" uid="uid://bslgplbyijmlf" path="res://Art/скронева епілепсія/локація.PNG" id="3_naqrq"]
+[ext_resource type="Texture2D" uid="uid://c1uwt7lsfuyqa" path="res://Art/скронева епілепсія/небо.PNG" id="3_yundd"]
+[ext_resource type="Texture2D" uid="uid://dvohaaxn3dvkb" path="res://Art/скронева епілепсія/скронева епілепсія.png" id="4_fs3ea"]
 
 [node name="LearnToPlay" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [5.0]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-45, -61)
+zoom = Vector2(1.5, 1.5)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_6gg1d")]
 z_index = 4
-position = Vector2(4, 74)
+position = Vector2(-12, -53)
+Health = 10
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-rotation = 1.29329
-zoom = Vector2(1.5, 1.5)
-position_smoothing_speed = 50.0
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+position = Vector2(-33, -8)
+remote_path = NodePath("../../Camera2D")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-z_index = 4
-position = Vector2(-362, 65)
-scale = Vector2(0.6, 0.6)
-metadata/_edit_group_ = true
+[node name="Node2D" type="Node2D" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
-offset_left = -351.0
-offset_top = -63.0
-offset_right = 351.0
-offset_bottom = 62.0
-metadata/_edit_use_anchors_ = true
+[node name="Локація" type="Sprite2D" parent="Node2D"]
+z_index = 1
+position = Vector2(-36, -124)
+scale = Vector2(-2.68437, 40.6034)
+texture = ExtResource("3_naqrq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-shape = SubResource("RectangleShape2D_w8tl8")
+[node name="Небо" type="Sprite2D" parent="Node2D"]
+position = Vector2(-11, -52)
+scale = Vector2(1, 1)
+texture = ExtResource("3_yundd")
+metadata/_edit_lock_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-z_index = 4
-position = Vector2(170, 169)
-metadata/_edit_group_ = true
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
-offset_left = -351.0
-offset_top = -63.0
-offset_right = 351.0
-offset_bottom = 62.0
-metadata/_edit_use_anchors_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_w8tl8")
+[node name="СкроневаЕпілепсія" type="Sprite2D" parent="Node2D"]
+z_index = 1
+position = Vector2(-39, -152)
+scale = Vector2(0.346, 0.346)
+texture = ExtResource("4_fs3ea")
