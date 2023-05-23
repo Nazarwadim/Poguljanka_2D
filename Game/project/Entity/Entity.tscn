@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbhuv7na238x6"]
+[gd_scene load_steps=9 format=3 uid="uid://cbhuv7na238x6"]
 
 [ext_resource type="Script" path="res://Entity/Entity.cs" id="1_0foss"]
 [ext_resource type="Script" path="res://StateMashine/StateMashine.cs" id="2_k218a"]

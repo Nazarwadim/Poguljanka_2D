@@ -2,36 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD
-<<<<<<<< HEAD:Game/project/Art/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png.import
-uid="uid://dihtrxge4twyt"
+uid="uid://biyhpwmui5b1n"
 path="res://.godot/imported/Tiles.png-c0a36c509e6e5539add11c5b88591976.ctex"
-========
-uid="uid://dnfvu3r1puqyf"
-path="res://.godot/imported/Фон.PNG-2a2522555a888975ae6dddc9f9dd01ab.ctex"
->>>>>>>> Vovan:Game/project/Art/скронева епілепсія/Фон.PNG.import
-=======
-uid="uid://da7asj2g66m43"
-path="res://.godot/imported/Tiles.png-c0a36c509e6e5539add11c5b88591976.ctex"
->>>>>>> Vovan
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD
-<<<<<<<< HEAD:Game/project/Art/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png.import
 source_file="res://Art/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png"
 dest_files=["res://.godot/imported/Tiles.png-c0a36c509e6e5539add11c5b88591976.ctex"]
-========
-source_file="res://Art/скронева епілепсія/Фон.PNG"
-dest_files=["res://.godot/imported/Фон.PNG-2a2522555a888975ae6dddc9f9dd01ab.ctex"]
->>>>>>>> Vovan:Game/project/Art/скронева епілепсія/Фон.PNG.import
-=======
-source_file="res://Art/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png"
-dest_files=["res://.godot/imported/Tiles.png-c0a36c509e6e5539add11c5b88591976.ctex"]
->>>>>>> Vovan
 
 [params]
 
