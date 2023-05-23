@@ -7,6 +7,10 @@ public partial class Die : Node, IState
     public Entity Character {get;set;}
     public AnimationPlayer Animation {get;set;}
     public bool CanMove  {get; set;}
+    public Die()
+    {
+        CanMove = false;
+    }
     public void Enter()
     {
         if(Character.Health <= 0){

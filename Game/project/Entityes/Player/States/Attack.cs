@@ -10,7 +10,7 @@ public partial class Attack : Node, IState
 
     public Attack()
     {
-        CanMove = true;
+        CanMove = false;
     }
 
     private Air _air;
@@ -24,6 +24,7 @@ public partial class Attack : Node, IState
     }
     public async void Enter()
     {
+        
         {}GD.Print("Attack");
         Animation.Play("attack_1");
         await ToSignal(Animation, "animation_finished");
@@ -32,6 +33,11 @@ public partial class Attack : Node, IState
     
     public void Update(double delta)
     {   
+        Vector2 velocity = Character.Velocity;
+        
+        velocity.X = Mathf.MoveToward(velocity.X, 0, 800*(float)delta);
+        
+        Character.Velocity = velocity;
     }
     public void Exit(){}
     public void StateInput(InputEvent @event)

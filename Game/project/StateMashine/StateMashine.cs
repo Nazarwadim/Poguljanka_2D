@@ -27,7 +27,6 @@ public partial class StateMashine : Node
                 temp.Character = _character;
                 temp.Animation = _animation;
                 _states.Add(temp);  
-                
             }
         }
 
