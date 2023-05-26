@@ -17,3 +17,6 @@ Game/project/bin
 audio/
 screen/
 Untitled.jpg
+
+**/*.import 
+**/*.aseprite
