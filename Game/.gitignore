@@ -1,4 +1,4 @@
 *.dblite
 src/*.obj
 
-Art/
+**/*.import
