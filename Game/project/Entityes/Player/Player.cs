@@ -3,8 +3,6 @@ using System;
 
 public partial class Player : Entity
 {
-    public static PackedScene PlayerScene = GD.Load<PackedScene>("player.tscn");
-
     [Export] 
     public float Speed = 300f;
     public float SpeedAcceleration = 3000;
