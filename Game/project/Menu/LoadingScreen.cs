@@ -38,7 +38,7 @@ public partial class LoadingScreen : Control
 
 		if(progressBar.Value>=100) {
 		var transaction = GetNode<Transaction>("/root/Transaction");
-		transaction.transact("C://Games/OurProject/Game/project/Menu/menu.tscn");
+		transaction.transact("res://Menu/menu.tscn");
 		}
 	}
 
