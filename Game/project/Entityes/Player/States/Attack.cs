@@ -7,10 +7,12 @@ public partial class Attack : Node, IState
     public Entity Character{get;set;}
     public AnimationPlayer Animation {get;set;}
     public bool CanMove  {get; set;}
+    public bool CanDash  {get; set;}
 
     public Attack()
     {
         CanMove = true;
+        CanDash = false;
     }
 
     private Air _air;
