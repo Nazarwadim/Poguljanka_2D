@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbhuv7na238x6"]
+[gd_scene load_steps=9 format=3 uid="uid://cbhuv7na238x6"]
 
 [ext_resource type="Script" path="res://Entity/Entity.cs" id="1_0foss"]
 [ext_resource type="Script" path="res://StateMashine/StateMashine.cs" id="2_k218a"]
@@ -41,6 +41,10 @@ _data = {
 "damage": SubResource("Animation_6w5nb")
 }
 
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tbtj3"]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_qi6qw"]
+
 [node name="Entity" type="CharacterBody2D"]
 script = ExtResource("1_0foss")
 
@@ -59,6 +63,9 @@ libraries = {
 root_node = NodePath("../CharSprite")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_tbtj3")
+anim_player = NodePath("../AnimationPlayer")
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_qi6qw")
 
 [node name="StateMashine" type="Node" parent="."]
 editor_description = "First state is state that starts first
