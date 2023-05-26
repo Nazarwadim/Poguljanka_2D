@@ -395,7 +395,6 @@ _data = {
 [node name="Player" instance=ExtResource("1_jf5hy")]
 script = ExtResource("2_qguq7")
 Speed = 300.0
-Health = 20
 
 [node name="CharSprite" parent="." index="0"]
 position = Vector2(1, -7)
