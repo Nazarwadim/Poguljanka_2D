@@ -3,7 +3,7 @@ public interface IState
 {
     IState NextState {get;set;}
     Entity Character {get;set;}
-    AnimationPlayer Animation {get;set;}
+    AnimationNodeStateMachinePlayback Playback{get;set;}
     bool CanMove  {get; set;}
     void Enter();
     void Update(double delta);

@@ -5,8 +5,10 @@ public partial class Ground : Node, IState
 {
     public IState NextState {get; set;}
     public Entity Character{get;set;}
-    public AnimationPlayer Animation {get;set;}
+    public AnimationNodeStateMachinePlayback Playback{get;set;}
     public bool CanMove  {get; set;}
+    private Air _air;
+    private Attack _attack;
 
     [Export] public float JumpVelosity = -150f;
     
@@ -14,10 +16,6 @@ public partial class Ground : Node, IState
     {
         CanMove = true;
     }
-
-    private Air _air;
-    private Attack _attack;
-
     public override void _Ready()
     {
         _air = GetNode<Air>("../Air");
@@ -25,20 +23,15 @@ public partial class Ground : Node, IState
     }
     public void Enter()
     {
+        Playback.Travel("move");
         {}GD.Print("State Ground");
-        Animation.Play("Idle");
+        //Animation.Play("Idle");
     }
     
     public void Update(double delta)
     {
         if(!Character.IsOnFloor()){
             NextState = _air;
-        }
-        if(Character.Velocity.X != 0){
-            Animation.CurrentAnimation = "run";
-        }
-        else{       
-            Animation.CurrentAnimation = "Idle";
         }
     }
     public void Exit()

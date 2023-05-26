@@ -1,12 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://dxejte2nv223"]
+[gd_scene load_steps=42 format=3 uid="uid://dxejte2nv223"]
 
 [ext_resource type="PackedScene" uid="uid://cbhuv7na238x6" path="res://Entity/Entity.tscn" id="1_jf5hy"]
-[ext_resource type="Texture2D" uid="uid://cf5vr3rdkcdr0" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Idle/Idle-Sheet.png" id="2_l8ahv"]
+[ext_resource type="Texture2D" uid="uid://urjss2bedyxr" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Idle/Idle-Sheet.png" id="2_l8ahv"]
 [ext_resource type="Script" path="res://Entityes/Player/Player.cs" id="2_qguq7"]
-[ext_resource type="Texture2D" uid="uid://bvqkoppprkbil" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Run/Run-Sheet.png" id="3_ag4ck"]
-[ext_resource type="Texture2D" uid="uid://cwl6m881dulgh" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Attack-01/Attack-01-Sheet.png" id="4_aqxsb"]
-[ext_resource type="Texture2D" uid="uid://cilbq1jmxocd0" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Jumlp-All/Jump-All-Sheet.png" id="5_e5n1h"]
-[ext_resource type="Texture2D" uid="uid://bbpnlt5k5pp0f" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Dead/Dead-Sheet.png" id="7_hw6po"]
+[ext_resource type="Texture2D" uid="uid://4hhhvi1ifac6" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Run/Run-Sheet.png" id="3_ag4ck"]
+[ext_resource type="Texture2D" uid="uid://dpsbla60wkxfr" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Attack-01/Attack-01-Sheet.png" id="4_aqxsb"]
+[ext_resource type="Texture2D" uid="uid://bkciraoe88oth" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Jumlp-All/Jump-All-Sheet.png" id="5_e5n1h"]
+[ext_resource type="Texture2D" uid="uid://dw1qtht172adi" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Dead/Dead-Sheet.png" id="7_hw6po"]
 [ext_resource type="Script" path="res://Entityes/Player/States/Ground.cs" id="7_sghwo"]
 [ext_resource type="Script" path="res://Entityes/Player/States/Landing.cs" id="8_gcdl5"]
 [ext_resource type="Script" path="res://Entityes/Player/States/Air.cs" id="9_vpl53"]
@@ -390,6 +390,79 @@ _data = {
 "run": SubResource("Animation_jpcy5")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4d0kv"]
+animation = &"attack_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ane4i"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bofo8"]
+animation = &"jump_start"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5evs2"]
+animation = &"land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kguof"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_etv3q"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dpqc5"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_vrpau"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_kguof")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_etv3q")
+blend_point_1/pos = 1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_dpqc5")
+blend_point_2/pos = 0.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_41c7t"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_if8y6"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vu6v0"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u04xa"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sbkq3"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t0b1d"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qcuh1"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vnmfe"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1f27u"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eru27"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3b5qu"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_qxkas"]
+states/End/position = Vector2(1078.67, 228.831)
+states/Start/position = Vector2(169.333, 226.107)
+states/attack_1/node = SubResource("AnimationNodeAnimation_4d0kv")
+states/attack_1/position = Vector2(484.296, 382)
+states/die/node = SubResource("AnimationNodeAnimation_ane4i")
+states/die/position = Vector2(902.667, 228.896)
+states/jump_start/node = SubResource("AnimationNodeAnimation_bofo8")
+states/jump_start/position = Vector2(484.889, 84.6667)
+states/land/node = SubResource("AnimationNodeAnimation_5evs2")
+states/land/position = Vector2(668, 85.1112)
+states/move/node = SubResource("AnimationNodeBlendSpace1D_vrpau")
+states/move/position = Vector2(484, 225.111)
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_41c7t"), "move", "jump_start", SubResource("AnimationNodeStateMachineTransition_if8y6"), "jump_start", "land", SubResource("AnimationNodeStateMachineTransition_vu6v0"), "move", "attack_1", SubResource("AnimationNodeStateMachineTransition_u04xa"), "attack_1", "move", SubResource("AnimationNodeStateMachineTransition_sbkq3"), "land", "move", SubResource("AnimationNodeStateMachineTransition_t0b1d"), "die", "End", SubResource("AnimationNodeStateMachineTransition_qcuh1"), "land", "die", SubResource("AnimationNodeStateMachineTransition_vnmfe"), "move", "die", SubResource("AnimationNodeStateMachineTransition_1f27u"), "attack_1", "die", SubResource("AnimationNodeStateMachineTransition_eru27"), "jump_start", "die", SubResource("AnimationNodeStateMachineTransition_3b5qu")]
+graph_offset = Vector2(64.1913, 76.6692)
+
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_e375b"]
 
 [node name="Player" instance=ExtResource("1_jf5hy")]
@@ -399,20 +472,23 @@ Speed = 300.0
 [node name="CharSprite" parent="." index="0"]
 position = Vector2(1, -7)
 texture = ExtResource("2_l8ahv")
-hframes = 4
+hframes = 8
 frame = 3
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CapsuleShape2D_k1u4i")
 
 [node name="AnimationPlayer" parent="." index="3"]
+root_node = NodePath("../CharSprite")
 libraries = {
 "": SubResource("AnimationLibrary_ihnv3")
 }
 
 [node name="AnimationTree" parent="." index="4"]
+tree_root = SubResource("AnimationNodeStateMachine_qxkas")
 active = true
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_e375b")
+parameters/move/blend_position = 0.0
 
 [node name="Progress" type="ProgressBar" parent="." index="5"]
 modulate = Color(0.356863, 1, 1, 1)

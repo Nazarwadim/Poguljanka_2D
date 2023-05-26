@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://pjyvjuakcdrl"]
 
 [ext_resource type="PackedScene" uid="uid://dxejte2nv223" path="res://Entityes/Player/player.tscn" id="1_6gg1d"]
-[ext_resource type="Texture2D" uid="uid://c8ac5lvorg2wy" path="res://Art/скронева епілепсія/локація.PNG" id="3_naqrq"]
-[ext_resource type="Texture2D" uid="uid://cg0kmygq1xk0n" path="res://Art/скронева епілепсія/небо.PNG" id="3_yundd"]
-[ext_resource type="Texture2D" uid="uid://ckcbrh3v2456i" path="res://Art/скронева епілепсія/скронева епілепсія.png" id="4_fs3ea"]
-[ext_resource type="Texture2D" uid="uid://biyhpwmui5b1n" path="res://Art/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="5_angai"]
-[ext_resource type="Texture2D" uid="uid://b15y0nqspx04o" path="res://Art/скронева епілепсія/дерево парал.PNG" id="5_jv8fw"]
+[ext_resource type="Texture2D" uid="uid://cldhtm1hfo8l5" path="res://Art/скронева епілепсія/локація.PNG" id="3_naqrq"]
+[ext_resource type="Texture2D" uid="uid://newp33pawuo6" path="res://Art/скронева епілепсія/небо.PNG" id="3_yundd"]
+[ext_resource type="Texture2D" uid="uid://6so2eef8g4sa" path="res://Art/скронева епілепсія/скронева епілепсія.png" id="4_fs3ea"]
+[ext_resource type="Texture2D" uid="uid://ccynlp00dhcxs" path="res://Art/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="5_angai"]
+[ext_resource type="Texture2D" uid="uid://ckc8baymf0bim" path="res://Art/скронева епілепсія/дерево парал.PNG" id="5_jv8fw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hhokj"]
 texture = ExtResource("5_angai")
@@ -1419,15 +1419,16 @@ sources/0 = SubResource("TileSetAtlasSource_hhokj")
 metadata/_edit_horizontal_guides_ = [5.0]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-45, -61)
+position = Vector2(-240, -64)
 zoom = Vector2(1.5, 1.5)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_6gg1d")]
 z_index = 4
-position = Vector2(-12, -53)
+position = Vector2(-207, -56)
 Health = 20
+metadata/_edit_group_ = true
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 position = Vector2(-33, -8)

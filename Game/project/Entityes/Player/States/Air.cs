@@ -5,7 +5,7 @@ public partial class Air : Node, IState
 {
     public IState NextState {get; set;}
     public Entity Character{get;set;}
-    public AnimationPlayer Animation {get;set;}
+    public AnimationNodeStateMachinePlayback Playback{get;set;}
     public bool CanMove  {get; set;}
     public Air()
     {
@@ -24,19 +24,19 @@ public partial class Air : Node, IState
     }
     public void Enter()
     {
-        Animation.Play("jump_start");
+        Playback.Travel("jump_start");
         {}GD.Print("Air");
     }
 
     private float _prevYSpeed;    
-    private const float MIN_Y_SPEED_FOR_DAMAGE = 450;
+    private const float MIN_Y_SPEED_FOR_DAMAGE = 500;
     public void Update(double delta)
     {
         if(Character.IsOnFloor() == true)
         {
             if(_prevYSpeed > MIN_Y_SPEED_FOR_DAMAGE){
-                {}GD.Print( "Damage is " +(int)(_prevYSpeed * 0.01f));
-                Character.GetDamage((int)(_prevYSpeed * 0.01f));
+                {}GD.Print( "Damage is " +(int)(_prevYSpeed * 0.02f));
+                Character.GetDamage((int)(_prevYSpeed * 0.02f));
             }
             NextState = _land;
         }

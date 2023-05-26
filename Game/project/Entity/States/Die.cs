@@ -5,7 +5,7 @@ public partial class Die : Node, IState
 {
     public IState NextState {get;set;}
     public Entity Character {get;set;}
-    public AnimationPlayer Animation {get;set;}
+    public AnimationNodeStateMachinePlayback Playback{get;set;}
     public bool CanMove  {get; set;}
     public Die()
     {
@@ -23,9 +23,9 @@ public partial class Die : Node, IState
 
     private async void PlayDie()
     {
-        Animation.Play("die");
-
-        await ToSignal(Animation, "animation_finished");
+        Playback.Travel("die");
+        
+        await ToSignal(GetTree().CreateTimer(1), "timeout");
         Character.QueueFree();
     }
     public void Update(double delta)
