@@ -29,7 +29,7 @@ public partial class LoadingScreen : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		
+
 	}
 
 	public void _on_timer_timeout(){
@@ -38,7 +38,7 @@ public partial class LoadingScreen : Control
 
 		if(progressBar.Value>=100) {
 		var transaction = GetNode<Transaction>("/root/Transaction");
-		transaction.transact("C://Games/OurProject/Game/project/Menu/menu.tscn");
+		transaction.transact("Menu/menu.tscn");
 		}
 	}
 

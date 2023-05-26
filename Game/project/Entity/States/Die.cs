@@ -23,7 +23,7 @@ public partial class Die : Node, IState
 
         await ToSignal(Animation, "animation_finished");
         var transaction = GetNode<Transaction>("/root/Transaction");
-		transaction.transact("C://Games/OurProject/Game/project/Menu/menu.tscn");
+		transaction.transact("Menu/menu.tscn");
         Character.QueueFree();
     }
     public void Update(double delta)
@@ -32,11 +32,11 @@ public partial class Die : Node, IState
         velocity.X = Mathf.MoveToward(velocity.X, 0, 500*(float)delta);
         Character.Velocity = velocity;
     }
-    
+
     public void StateInput(InputEvent @event)
     {}
     public void Exit()
     {
-        
+
     }
 }

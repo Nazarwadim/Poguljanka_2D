@@ -28,7 +28,7 @@ public partial class menu : Control
 	}
 	private void _on_start_learn_button_pressed(){
 		var transaction = GetNode<Transaction>("/root/Transaction");
-		transaction.transact("C://Games/OurProject/Game/project/Lvls/learn_to_play.tscn");
+		transaction.transact("Lvls/learn_to_play.tscn");
 	}
 
 	public void ButtonInWork(Node node)
