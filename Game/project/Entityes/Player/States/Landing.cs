@@ -12,18 +12,17 @@ public partial class Landing : Node, IState
 
     public Landing()
     {
-        CanMove = false;
+        CanMove = true;
     }
     public override void _Ready()
     {
         _ground = GetNode<Ground>("../Ground");  
     }
 
-    public async void Enter()
+    public void Enter()
     {
         {}GD.Print("State Landing");
         Animation.Play("land");
-        await ToSignal(Animation, "animation_finished");
         NextState = _ground;
     }
 

@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="Project"
-run/main_scene="res://Lvls/learn_to_play.tscn"
+run/main_scene="res://Menu/loading_screen.tscn"
 config/features=PackedStringArray("4.0", "C#", "GL Compatibility")
+boot_splash/show_image=false
+boot_splash/image="res://Art/OurArts/скронева епілепсія.png"
 config/icon="res://icon.svg"
+
+[autoload]
+
+Transaction="*res://Menu/Transaction.tscn"
 
 [dotnet]
 

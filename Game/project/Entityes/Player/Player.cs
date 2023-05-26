@@ -1,13 +1,12 @@
 using Godot;
-using System;
 
 public partial class Player : Entity
 {
     public static PackedScene PlayerScene = GD.Load<PackedScene>("player.tscn");
 
     [Export] 
-    public float Speed = 300f;
-    public float SpeedAcceleration = 3000;
+    public float Speed = 350f;
+    public float SpeedAcceleration = 4000;
     private StateMashine _mashine;
     private AnimationPlayer _animation;
     public override void _Ready()
@@ -44,7 +43,7 @@ public partial class Player : Entity
 		}
         
 		velocity.X = Mathf.MoveToward(velocity.X, 0, 1500 *(float)delta);
-        velocity.Y = Mathf.MoveToward(velocity.Y, 0, 300 *(float)delta);
+        velocity.Y = Mathf.MoveToward(velocity.Y, 0, 100 *(float)delta);
         
         Velocity = velocity;
     }

@@ -22,6 +22,8 @@ public partial class Die : Node, IState
         Animation.Play("die");
 
         await ToSignal(Animation, "animation_finished");
+        var transaction = GetNode<Transaction>("/root/Transaction");
+		transaction.transact("C://Games/OurProject/Game/project/Menu/menu.tscn");
         Character.QueueFree();
     }
     public void Update(double delta)

@@ -1,47 +1,116 @@
-[gd_scene load_steps=3 format=3 uid="uid://pjyvjuakcdrl"]
+[gd_scene load_steps=9 format=3 uid="uid://pjyvjuakcdrl"]
 
 [ext_resource type="PackedScene" uid="uid://dxejte2nv223" path="res://Entityes/Player/player.tscn" id="1_6gg1d"]
+[ext_resource type="Script" path="res://Lvls/learn_to_play.cs" id="1_omk33"]
+[ext_resource type="Texture2D" uid="uid://bf1vhalyfbqbr" path="res://Art/OurArts/скронева епілепсія.png" id="2_gel8q"]
+[ext_resource type="PackedScene" uid="uid://dxht80gk5hgyd" path="res://Entityes/Enemies/Snail/snail.tscn" id="4_khrhn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8tl8"]
-size = Vector2(701.5, 127)
+size = Vector2(1004, 85)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yoqvb"]
+size = Vector2(952, 89.5)
+
+[sub_resource type="TileSet" id="TileSet_dgnxk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_28qqs"]
+size = Vector2(6795, 214)
 
 [node name="LearnToPlay" type="Node2D"]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(157, 6)
-zoom = Vector2(1.5, 1.5)
+script = ExtResource("1_omk33")
 
 [node name="Player" parent="." instance=ExtResource("1_6gg1d")]
 z_index = 4
 position = Vector2(4, 74)
+Speed = 350.0
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(-362, 65)
-scale = Vector2(0.6, 0.6)
-metadata/_edit_group_ = true
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
-z_index = 2
-offset_left = -351.0
-offset_top = -63.0
-offset_right = 351.0
-offset_bottom = 62.0
-metadata/_edit_use_anchors_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-shape = SubResource("RectangleShape2D_w8tl8")
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -35)
+offset = Vector2(20, 20)
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 12.0
+rotation_smoothing_speed = 10.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(170, 169)
+z_index = 2
+position = Vector2(152, 192)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
 z_index = 2
 offset_left = -351.0
 offset_top = -63.0
-offset_right = 351.0
-offset_bottom = 62.0
+offset_right = 649.0
+offset_bottom = 37.0
+color = Color(0.12549, 0.580392, 0.0117647, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(151, -15.5)
 shape = SubResource("RectangleShape2D_w8tl8")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(0, -12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-874, 243)
+shape = SubResource("RectangleShape2D_yoqvb")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+z_index = 2
+offset_left = -1377.0
+offset_top = 180.0
+offset_right = -377.0
+offset_bottom = 280.0
+color = Color(0.12549, 0.580392, 0.0117647, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(0, -12)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D3"]
+z_index = 2
+offset_left = 1110.0
+offset_top = 140.0
+offset_right = 2110.0
+offset_bottom = 240.0
+color = Color(0.12549, 0.580392, 0.0117647, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(1615, 195)
+shape = SubResource("RectangleShape2D_yoqvb")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_dgnxk")
+cell_quadrant_size = 23
+format = 2
+layer_0/name = "Ground"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -10
+offset_left = -920.0
+offset_top = -477.0
+offset_right = 1605.0
+offset_bottom = 243.0
+texture = ExtResource("2_gel8q")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(5, 1719)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(275.5, 97)
+shape = SubResource("RectangleShape2D_28qqs")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D4/CollisionShape2D"]
+custom_minimum_size = Vector2(5000, 100)
+layout_direction = 1
+offset_left = -3398.0
+offset_top = -104.0
+offset_right = 3400.0
+offset_bottom = 108.0
+color = Color(0.945098, 0, 0, 1)
+
+[node name="Snail" parent="." instance=ExtResource("4_khrhn")]
+position = Vector2(223, 110)

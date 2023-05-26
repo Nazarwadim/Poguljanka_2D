@@ -1,0 +1,116 @@
+[gd_scene load_steps=13 format=3 uid="uid://db3jowxgprdg0"]
+
+[ext_resource type="Script" path="res://Menu/menu.cs" id="1_gy6ja"]
+[ext_resource type="PackedScene" uid="uid://bu0d8q563ik1d" path="res://Entityes/Enemies/label.tscn" id="2_qnnxp"]
+[ext_resource type="Texture2D" uid="uid://dacomt6ul22fc" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-001.jpg" id="3_nxsnu"]
+[ext_resource type="Texture2D" uid="uid://cilq4ql2cwnxw" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-002.jpg" id="4_j8xlb"]
+[ext_resource type="Texture2D" uid="uid://ma7i71vf8i05" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-003.jpg" id="5_mysux"]
+[ext_resource type="Texture2D" uid="uid://cruwolo2jhkd3" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-004.jpg" id="6_v2pe6"]
+[ext_resource type="Texture2D" uid="uid://y5c1d0efidwf" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-005.jpg" id="7_v8iee"]
+[ext_resource type="Texture2D" uid="uid://c21nad7122oh6" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-006.jpg" id="8_7oryv"]
+[ext_resource type="Texture2D" uid="uid://b8m3vjt4v7wmj" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-007.jpg" id="9_p7w00"]
+[ext_resource type="Texture2D" uid="uid://8fj3gtq8k83w" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-008.jpg" id="10_fakc4"]
+[ext_resource type="Script" path="res://Menu/AnimatedSprite2D.cs" id="11_4dm67"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_whg25"]
+animations = [{
+"frames": [{
+"duration": 0.6,
+"texture": ExtResource("3_nxsnu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_j8xlb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mysux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_v2pe6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_v8iee")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7oryv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_p7w00")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_fakc4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gy6ja")
+HealthChangedLabel = ExtResource("2_qnnxp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -84.0
+offset_right = 125.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[node name="OptionButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Quit the Game"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -362.0
+offset_bottom = 78.0
+grow_horizontal = 0
+
+[node name="StartLearnButton" type="Button" parent="VBoxContainer2"]
+custom_minimum_size = Vector2(400, 75)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.619608, 0.113725, 1)
+theme_override_colors/font_outline_color = Color(0, 0.105882, 0.313726, 0.682353)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 30
+text = "Learn to play"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(574, 345)
+scale = Vector2(3.66719, 2.475)
+sprite_frames = SubResource("SpriteFrames_whg25")
+frame = 1
+frame_progress = 0.0508826
+script = ExtResource("11_4dm67")
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/StartLearnButton" to="." method="_on_start_learn_button_pressed"]
