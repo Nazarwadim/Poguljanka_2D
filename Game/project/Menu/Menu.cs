@@ -1,42 +1,29 @@
 using Godot;
 using System;
 
+// This class and scene is Incomplete!!!!!!!!!!
 public partial class Menu : Control
 {
-	[Export]
-    public PackedScene HealthChangedLabel;
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	[Export]public PackedScene HealthChangedLabel;
 
 	private void _on_start_button_pressed(){
-		ButtonInWork(this);
+		_TempButtonMassageIsNotWork();
 	}
-
 	private void _on_option_button_pressed(){
-		ButtonInWork(this);
+		_TempButtonMassageIsNotWork();
 	}
-
 	private void _on_quit_button_pressed(){
 		GetTree().Quit();
 	}
 	private void _on_start_learn_button_pressed(){
-		var transaction = GetNode<Transaction>("/root/Transaction");
-		transaction.Transact("res://Lvls/learn_to_play.tscn");
+		Transaction.Getsingleton.Transact("res://Lvls/learn_to_play.tscn");
 	}
 
-	public void ButtonInWork(Node node)
+	private void _TempButtonMassageIsNotWork()
     {
         var labelInstance = (Label)HealthChangedLabel.Instantiate();
-        node.AddChild(labelInstance);
+        AddChild(labelInstance);
 		labelInstance.Position = new Vector2(495,500);
         labelInstance.Text = "Button is in work";
     }
-
 }

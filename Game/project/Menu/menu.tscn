@@ -41,7 +41,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 6.0
+"speed": 9.0
 }]
 
 [node name="Menu" type="Control"]
@@ -107,8 +107,8 @@ z_index = -1
 position = Vector2(574, 345)
 scale = Vector2(3.66719, 2.475)
 sprite_frames = SubResource("SpriteFrames_whg25")
-frame = 4
-frame_progress = 0.813521
+frame = 5
+frame_progress = 0.443027
 script = ExtResource("11_ag0we")
 metadata/_edit_lock_ = true
 

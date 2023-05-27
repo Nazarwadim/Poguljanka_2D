@@ -3,11 +3,14 @@ using System;
 
 public partial class Player : Entity
 {
-    [Export] 
-    public float Speed = 300f;
-    public float SpeedAcceleration = 3000;
+    [Export] public float Speed = 300f;
+    public float SpeedAcceleration;
     private StateMashine _mashine;
     private AnimationTree _animationTree;
+    public Player()
+    {
+        SpeedAcceleration = 3000f;
+    }
 
     private Vector2 _direction;
     public override void _Ready()
