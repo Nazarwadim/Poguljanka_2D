@@ -10,10 +10,25 @@ config_version=5
 
 [application]
 
-config/name="Project"
-run/main_scene="res://Lvls/learn_to_play.tscn"
-config/features=PackedStringArray("4.0", "C#", "GL Compatibility")
+config/name="Poguljanka_2D"
+run/main_scene="res://Menu/LoadScreen/loading_screen.tscn"
+config/features=PackedStringArray("4.0", "GL Compatibility")
+boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
+
+[autoload]
+
+Transaction="*res://Menu/Transaction/Transaction.tscn"
+
+[debug]
+
+settings/stdout/print_fps=true
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="ignore"
 
 [dotnet]
 
@@ -62,6 +77,6 @@ jump={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-textures/canvas_textures/default_texture_filter=0

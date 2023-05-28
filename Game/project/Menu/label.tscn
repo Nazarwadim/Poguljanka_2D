@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://chkjfbe0exdb8"]
+
+[ext_resource type="Script" path="res://Menu/label.gd" id="1_b0act"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ko4xk"]
+font_size = 20
+font_color = Color(0.721569, 0, 0.121569, 1)
+
+[node name="HealthChangedLabel" type="Label"]
+offset_right = 46.0
+offset_bottom = 31.0
+scale = Vector2(1, 0.990971)
+theme_override_font_sizes/font_size = 25
+text = "No massage"
+label_settings = SubResource("LabelSettings_ko4xk")
+script = ExtResource("1_b0act")
+speed = Vector2(0, -100)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

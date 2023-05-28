@@ -3,19 +3,22 @@ using System;
 
 public partial class Player : Entity
 {
-    public static PackedScene PlayerScene = GD.Load<PackedScene>("player.tscn");
-
-    [Export] 
-    public float Speed = 300f;
-    public float SpeedAcceleration = 3000;
+    [Export] public float Speed = 300f;
+    public float SpeedAcceleration;
     private StateMashine _mashine;
-    private AnimationPlayer _animation;
+    private AnimationTree _animationTree;
+    public Player()
+    {
+        SpeedAcceleration = 3000f;
+    }
+
+    private Vector2 _direction;
     public override void _Ready()
     {   
-        _animation = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animationTree = GetNode<AnimationTree>("AnimationTree");
         _mashine = GetNode<StateMashine>("StateMashine");
-        GetNode<AnimationPlayer>("AnimationPlayer").Play("Idle");
     }
+
 
 
     public override void _PhysicsProcess(double delta)
@@ -23,6 +26,8 @@ public partial class Player : Entity
        if(_mashine.CurrentState.CanMove){
             MovePlayer(delta);
        }
+        _animationTree.Set("parameters/move/blend_position",_direction.X);
+
         _UseGravity(delta);
         _FlipBySpeed();
         MoveAndSlide();
@@ -30,16 +35,18 @@ public partial class Player : Entity
     public override void _Process(double delta)
     {
         GetNode<ProgressBar>("Progress").Value = Health;
+
+
     }
     private void MovePlayer(double delta)
     {
         Vector2 velocity = Velocity;
-        Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
+        _direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		if (_direction != Vector2.Zero)
 		{
             
             if(Mathf.Abs(velocity.X) < Speed )
-			    velocity.X += direction.X * SpeedAcceleration * (float)delta;
+			    velocity.X += _direction.X * SpeedAcceleration * (float)delta;
             
 		}
         

@@ -8,7 +8,8 @@ Game/project/.godot/
 # Mono-specific ignores
 .mono/
 data_*/
-
+**/*.import 
+**/*.aseprite
 
 #gd Extention
 
@@ -17,3 +18,6 @@ Game/project/bin
 audio/
 screen/
 Untitled.jpg
+**/*.pdf
+
+

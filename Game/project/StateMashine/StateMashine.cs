@@ -6,17 +6,16 @@ public partial class StateMashine : Node
     public bool IsWorking = true;
 
     private Entity _character;
-    private AnimationPlayer _animation;
     private List<IState> _states;
     public IState CurrentState;
 
-    
+    private AnimationTree _AnimationTree;
     public override void _Ready()
     {
+        _AnimationTree = GetNode<AnimationTree>("../AnimationTree");
         if(!IsWorking){ throw new Exception("State Mashine doesn`t work");}
 
         _character = GetParent<Entity>();
-        _animation = GetNode<AnimationPlayer>("../AnimationPlayer");
         _states = new List<IState>();
 
         for(int i = 0; i < GetChildCount();i++)
@@ -25,9 +24,8 @@ public partial class StateMashine : Node
             if(temp != null)
             {
                 temp.Character = _character;
-                temp.Animation = _animation;
+                temp.Playback = (AnimationNodeStateMachinePlayback)_AnimationTree.Get("parameters/playback");
                 _states.Add(temp);  
-                
             }
         }
 
