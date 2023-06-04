@@ -5,6 +5,7 @@ public partial class Entity : CharacterBody2D
 {
     [Export] public int Health = 10;
     [Export] public int Armor = 0;
+    [Export] public Damageable Damage;
     protected readonly float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
     public void GetDamage(int damage)

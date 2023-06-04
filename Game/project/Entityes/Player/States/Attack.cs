@@ -6,6 +6,7 @@ public partial class Attack : Node, IState
     public IState NextState {get; set;}
     public Entity Character{get;set;}
     public AnimationNodeStateMachinePlayback Playback{get;set;}
+    public AnimationTree AnimTree{get;set;}
     public bool CanMove  {get; set;}
 
     public Attack()
@@ -27,7 +28,7 @@ public partial class Attack : Node, IState
     {
         Playback.Travel("attack_1");
         {}GD.Print("Attack");
-        await ToSignal(GetTree().CreateTimer(0.3), "timeout");
+        await ToSignal(AnimTree, "animation_finished");
         NextState = _ground;
     }
     

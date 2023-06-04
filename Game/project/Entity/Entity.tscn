@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbhuv7na238x6"]
+[gd_scene load_steps=10 format=3 uid="uid://cbhuv7na238x6"]
 
 [ext_resource type="Script" path="res://Entity/Entity.cs" id="1_0foss"]
+[ext_resource type="Script" path="res://Entity/Damageable.cs" id="2_5rwye"]
 [ext_resource type="Script" path="res://StateMashine/StateMashine.cs" id="2_k218a"]
 [ext_resource type="Script" path="res://Entity/States/Die.cs" id="3_dfm2p"]
 
@@ -45,8 +46,9 @@ _data = {
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_qi6qw"]
 
-[node name="Entity" type="CharacterBody2D"]
+[node name="Entity" type="CharacterBody2D" node_paths=PackedStringArray("Damage")]
 script = ExtResource("1_0foss")
+Damage = NodePath("Damageable")
 
 [node name="CharSprite" type="Sprite2D" parent="."]
 
@@ -66,6 +68,9 @@ root_node = NodePath("")
 tree_root = SubResource("AnimationNodeStateMachine_tbtj3")
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_qi6qw")
+
+[node name="Damageable" type="Node" parent="."]
+script = ExtResource("2_5rwye")
 
 [node name="StateMashine" type="Node" parent="."]
 editor_description = "First state is state that starts first

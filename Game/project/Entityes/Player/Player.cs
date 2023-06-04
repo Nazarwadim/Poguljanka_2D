@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Player : Entity
 {
@@ -11,7 +10,6 @@ public partial class Player : Entity
     {
         SpeedAcceleration = 3000f;
     }
-
     private Vector2 _direction;
     public override void _Ready()
     {   
@@ -35,8 +33,7 @@ public partial class Player : Entity
     public override void _Process(double delta)
     {
         GetNode<ProgressBar>("Progress").Value = Health;
-
-
+        
     }
     private void MovePlayer(double delta)
     {

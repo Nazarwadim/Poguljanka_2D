@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System;
 public partial class StateMashine : Node
 {
-    public bool IsWorking = true;
-
+    public bool IsWorking;
     private Entity _character;
-    private List<IState> _states;
     public IState CurrentState;
-
+    public List<IState> States;
     private AnimationTree _AnimationTree;
+    public StateMashine()
+    {
+        IsWorking = true;
+        States = new List<IState>();
+    }
     public override void _Ready()
     {
         _AnimationTree = GetNode<AnimationTree>("../AnimationTree");
+        
         if(!IsWorking){ throw new Exception("State Mashine doesn`t work");}
 
         _character = GetParent<Entity>();
-        _states = new List<IState>();
 
         for(int i = 0; i < GetChildCount();i++)
         {
@@ -24,19 +27,18 @@ public partial class StateMashine : Node
             if(temp != null)
             {
                 temp.Character = _character;
+                temp.AnimTree = _AnimationTree;
                 temp.Playback = (AnimationNodeStateMachinePlayback)_AnimationTree.Get("parameters/playback");
-                _states.Add(temp);  
+                States.Add(temp);
             }
         }
-
-        CurrentState = _states[0];
-        CurrentState.Enter();
-
-        if(_states.Count == 0)
+        if(States.Count == 0)
         {
             throw new NativeMemberNotFoundException("The machine did not find the states");
         }
-        {}GD.Print( _states[_states.Count-1] is Die);
+
+        CurrentState = States[0];
+        CurrentState.Enter();
     }
 
     public override void _Process(double delta)
@@ -47,11 +49,11 @@ public partial class StateMashine : Node
         {
             _SwitchStates(CurrentState.NextState);
         }
-         CurrentState.Update(delta);
+        CurrentState.Update(delta);
         
         if(_character.Health <=0)
         {
-            CurrentState.NextState = _states[_states.Count-1]; // the end of the states must be die state !!;
+            CurrentState.NextState = States[ States.Count - 1]; // the end of the states must be die state !!;
         }
     }
 

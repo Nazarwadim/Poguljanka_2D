@@ -15,8 +15,9 @@ public partial class Menu : Control
 	private void _on_quit_button_pressed(){
 		GetTree().Quit();
 	}
-	private void _on_start_learn_button_pressed(){
-		Transaction.Getsingleton.Transact("res://Lvls/learn_to_play.tscn");
+	private void _on_start_learn_button_pressed()
+	{
+		Transaction.Getsingleton.LoadGame("res://Lvls/LearnToPlay/level_learn_to_play.tscn");
 	}
 
 	private void _TempButtonMassageIsNotWork()

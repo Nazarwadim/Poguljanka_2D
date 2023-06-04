@@ -6,6 +6,7 @@ public partial class Landing : Node, IState
     public IState NextState {get; set;}
     public Entity Character{get;set;}
     public AnimationNodeStateMachinePlayback Playback{get;set;}
+    public AnimationTree AnimTree{get;set;}
     public bool CanMove  {get; set;}
 
     private Ground _ground;
@@ -21,8 +22,9 @@ public partial class Landing : Node, IState
 
     public async void Enter()
     {
-        {}GD.Print("State Landing");
-        await ToSignal(GetTree().CreateTimer(0.05), "timeout");
+        Playback.Travel("land");
+        await ToSignal(AnimTree, "animation_finished");
+        
         NextState = _ground;
     }
 

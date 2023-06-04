@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://7b60lyyoingj"]
+
+[ext_resource type="Script" path="res://Game/game.gd" id="1_78i2y"]
+[ext_resource type="PackedScene" uid="uid://dxejte2nv223" path="res://Entityes/Player/player.tscn" id="1_pjc4i"]
+[ext_resource type="Script" path="res://Game/level_manager.gd" id="2_a23wo"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_78i2y")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(1.5, 1.5)
+
+[node name="Player" parent="." instance=ExtResource("1_pjc4i")]
+z_index = 4
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+scale = Vector2(1.5, 1.5)
+remote_path = NodePath("../../Camera2D")
+
+[node name="Level" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("2_a23wo")
+player = NodePath("../Player")
+
+[connection signal="child_entered_tree" from="Level" to="Level" method="_on_child_entered_tree"]

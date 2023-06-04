@@ -6,6 +6,7 @@ public partial class Ground : Node, IState
     public IState NextState {get; set;}
     public Entity Character{get;set;}
     public AnimationNodeStateMachinePlayback Playback{get;set;}
+    public AnimationTree AnimTree{get;set;}
     public bool CanMove  {get; set;}
     private Air _air;
     private Attack _attack;
@@ -25,7 +26,6 @@ public partial class Ground : Node, IState
     {
         Playback.Travel("move");
         {}GD.Print("State Ground");
-        //Animation.Play("Idle");
     }
     
     public void Update(double delta)

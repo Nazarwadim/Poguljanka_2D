@@ -44,7 +44,7 @@ public partial class LoadingScreen : Control
         else
         {
 
-            Transaction.Getsingleton.Transact("res://Menu/menu.tscn");
+            Transaction.Getsingleton.Transact("res://UI/MainMenu/menu.tscn");
             ProcessMode = Node.ProcessModeEnum.Disabled;
         }
 
