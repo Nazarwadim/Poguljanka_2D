@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://vcoesi1cccl4"]
+
+[ext_resource type="Script" path="res://UI/GUI/gui.gd" id="1_lgx0x"]
+[ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="1_nbslr"]
+[ext_resource type="Script" path="res://UI/GUI/MainMenuButton.gd" id="3_tvscn"]
+[ext_resource type="Script" path="res://UI/GUI/SettingsButton.gd" id="4_66ut2"]
+[ext_resource type="Script" path="res://UI/GUI/ExitButton.gd" id="5_cyj34"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6p8q4"]
+shader = ExtResource("1_nbslr")
+
+[node name="GUI" type="CanvasLayer"]
+script = ExtResource("1_lgx0x")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6p8q4")
+offset_left = -51.0
+offset_top = -21.0
+offset_right = 1102.0
+offset_bottom = 620.0
+
+[node name="MainMenuButton" type="Button" parent="."]
+offset_left = 510.0
+offset_top = 212.0
+offset_right = 704.0
+offset_bottom = 270.0
+text = "Go to menu"
+script = ExtResource("3_tvscn")
+
+[node name="SettingsButton" type="Button" parent="."]
+offset_left = 508.0
+offset_top = 128.0
+offset_right = 705.0
+offset_bottom = 187.0
+text = "Settings"
+script = ExtResource("4_66ut2")
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 509.0
+offset_top = 301.0
+offset_right = 699.0
+offset_bottom = 365.0
+text = "Exit"
+script = ExtResource("5_cyj34")
+
+[connection signal="pressed" from="MainMenuButton" to="MainMenuButton" method="_on_pressed"]
+[connection signal="pressed" from="SettingsButton" to="SettingsButton" method="_on_pressed"]
+[connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]

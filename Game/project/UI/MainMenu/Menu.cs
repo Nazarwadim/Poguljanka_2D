@@ -13,7 +13,7 @@ public partial class Menu : Control
 		_TempButtonMassageIsNotWork();
 	}
 	private void _on_quit_button_pressed(){
-		GetTree().Quit();
+		Transaction.Getsingleton.QuitTree();
 	}
 	private void _on_start_learn_button_pressed()
 	{
@@ -23,8 +23,8 @@ public partial class Menu : Control
 	private void _TempButtonMassageIsNotWork()
     {
         var labelInstance = (Label)HealthChangedLabel.Instantiate();
+		labelInstance.Position = new Vector2(x: 450,y:450);
         AddChild(labelInstance);
-		labelInstance.Position = new Vector2(495,500);
-        labelInstance.Text = "Button is in work";
+        labelInstance.Text = "Button isn`t work";
     }
 }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://7b60lyyoingj"]
+[gd_scene load_steps=5 format=3 uid="uid://7b60lyyoingj"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_78i2y"]
 [ext_resource type="PackedScene" uid="uid://dxejte2nv223" path="res://Entityes/Player/player.tscn" id="1_pjc4i"]
 [ext_resource type="Script" path="res://Game/level_manager.gd" id="2_a23wo"]
+[ext_resource type="PackedScene" uid="uid://vcoesi1cccl4" path="res://UI/GUI/gui.tscn" id="4_b8kqv"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_78i2y")
@@ -20,5 +21,10 @@ remote_path = NodePath("../../Camera2D")
 [node name="Level" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("2_a23wo")
 player = NodePath("../Player")
+
+[node name="GUI" parent="." node_paths=PackedStringArray("game") instance=ExtResource("4_b8kqv")]
+process_mode = 3
+visible = false
+game = NodePath("..")
 
 [connection signal="child_entered_tree" from="Level" to="Level" method="_on_child_entered_tree"]

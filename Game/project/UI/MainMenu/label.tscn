@@ -6,9 +6,11 @@
 font_size = 20
 font_color = Color(0.721569, 0, 0.121569, 1)
 
-[node name="HealthChangedLabel" type="Label"]
-offset_right = 46.0
-offset_bottom = 31.0
+[node name="MassageLabel" type="Label"]
+offset_left = 2.0
+offset_top = 210.0
+offset_right = 120.0
+offset_bottom = 241.0
 scale = Vector2(1, 0.990971)
 theme_override_font_sizes/font_size = 25
 text = "No massage"

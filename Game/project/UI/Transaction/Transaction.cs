@@ -22,6 +22,12 @@ public partial class Transaction : Node
             LoadLevel(levelPath);
         }
     }
+    public async void QuitTree()
+    {
+        animationPlayer.Play("dissolve");
+        await ToSignal(animationPlayer, "animation_finished");
+        GetTree().Quit();
+    }
     public void LoadLevel(string path)
     {
         NodeFunctions.DeleteChildrenInNode(_level);
@@ -29,6 +35,7 @@ public partial class Transaction : Node
     }
     public void LoadMenu()
     {
+        
         Transact("res://UI/MainMenu/menu.tscn");
     }
     public async void Transact(string Target)

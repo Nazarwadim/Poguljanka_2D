@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cakojtn3n8dj2"]
+[gd_scene load_steps=11 format=3 uid="uid://cakojtn3n8dj2"]
 
 [ext_resource type="Script" path="res://UI/LoadScreen/LoadingScreen.cs" id="1_hn4ic"]
 [ext_resource type="Texture2D" uid="uid://bg7ntb55kns0d" path="res://Art/OurArts/photo_2023-03-30_21-07-10.jpg" id="2_2l6rc"]
 [ext_resource type="Texture2D" uid="uid://c2liw40q5dqsp" path="res://Art/Legacy-Fantasy - High Forest 2.3/Background/Background3.png" id="3_0kjah"]
 [ext_resource type="Script" path="res://UI/LoadScreen/TextureRectScript.cs" id="3_3pq73"]
 [ext_resource type="Texture2D" uid="uid://dpl3b67iqd5ms" path="res://Art/Legacy-Fantasy - High Forest 2.3/Character/Run/Run-Sheet.png" id="4_gkrxl"]
-[ext_resource type="Script" path="res://UI/LoadScreen/AnimationLoad.gd" id="5_acjmv"]
 [ext_resource type="Script" path="res://UI/LoadScreen/TextureProgressBarScript.gd" id="5_fy4dq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o2ed5"]
@@ -155,10 +154,10 @@ hframes = 8
 
 [node name="AnimationLoad" type="AnimationPlayer" parent="BarSprite"]
 root_node = NodePath("../..")
+autoplay = "BarAnimation"
 reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_ek8er")
 }
-script = ExtResource("5_acjmv")
 
 [connection signal="timeout" from="TimerBackground" to="." method="_on_timer_background_timeout"]

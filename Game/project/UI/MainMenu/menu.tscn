@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://db3jowxgprdg0"]
+[gd_scene load_steps=12 format=3 uid="uid://db3jowxgprdg0"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/Menu.cs" id="1_gy6ja"]
 [ext_resource type="PackedScene" uid="uid://chkjfbe0exdb8" path="res://UI/MainMenu/label.tscn" id="2_kx16y"]
@@ -10,9 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://b7mlhqouymhrm" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-006.jpg" id="8_7oryv"]
 [ext_resource type="Texture2D" uid="uid://c4agkq4fn71ju" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-007.jpg" id="9_p7w00"]
 [ext_resource type="Texture2D" uid="uid://dqwg2glrsf83h" path="res://Art/OurArts/ezgif-2-2be50d1db2-jpg/ezgif-frame-008.jpg" id="10_fakc4"]
-[ext_resource type="Script" path="res://UI/MainMenu/MenuAnimation.gd" id="11_ag0we"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_whg25"]
+resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -61,10 +61,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -125.0
-offset_top = -84.0
-offset_right = 125.0
-offset_bottom = 84.0
+offset_left = -129.0
+offset_top = -90.0
+offset_right = 121.0
+offset_bottom = 239.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -107,9 +107,7 @@ z_index = -1
 position = Vector2(574, 345)
 scale = Vector2(3.66719, 2.475)
 sprite_frames = SubResource("SpriteFrames_whg25")
-frame = 5
-frame_progress = 0.443027
-script = ExtResource("11_ag0we")
+autoplay = "default"
 metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
